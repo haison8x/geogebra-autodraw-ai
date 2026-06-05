@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — GeoGebra AutoDraw AI</title>
+  <style>
+    :root {
+      color-scheme: light;
+    }
+
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.2rem;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      margin-top: 2rem;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 4px;
+    }
+
+    .muted {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    th,
+    td {
+      border: 1px solid #e2e8f0;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f8fafc;
+    }
+
+    code {
+      background: #f1f5f9;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    footer {
+      margin-top: 3rem;
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Privacy Policy — GeoGebra AutoDraw AI</h1>
+  <p class="muted">Last updated: 2026-06-05</p>
+
+  <p>
+    GeoGebra AutoDraw AI ("the extension") is a Chrome extension that helps users draw plane-geometry
+    figures on the GeoGebra Calculator. This policy explains what data the extension handles.
+  </p>
+
+  <h2>1. Data we collect</h2>
+  <p>
+    <strong>We do not collect any personal data.</strong> The extension does not have a server, does not
+    use analytics, and does not transmit your data to us or any third party.
+  </p>
+
+  <h2>2. Data stored locally</h2>
+  <p>
+    For convenience, the extension saves the following on your own device using Chrome's
+    <code>chrome.storage.local</code> API. This data never leaves your browser:
+  </p>
+  <table>
+    <tr>
+      <th>Data</th>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td>Last problem text</td>
+      <td>Restore your last input when you reopen the panel</td>
+    </tr>
+    <tr>
+      <td>Last command list</td>
+      <td>Restore your last commands</td>
+    </tr>
+    <tr>
+      <td>History (up to 20 items)</td>
+      <td>Let you reload previous problems/commands</td>
+    </tr>
+    <tr>
+      <td>Settings (UI language, draw mode)</td>
+      <td>Remember your preferences</td>
+    </tr>
+  </table>
+  <p>You can clear this data at any time by removing the extension or clearing its storage in Chrome.</p>
+
+  <h2>3. Permissions</h2>
+  <table>
+    <tr>
+      <th>Permission</th>
+      <th>Why it is used</th>
+    </tr>
+    <tr>
+      <td><code>tabs</code></td>
+      <td>Find and track the GeoGebra Calculator tab to draw into.</td>
+    </tr>
+    <tr>
+      <td><code>storage</code></td>
+      <td>Save the items in section 2 locally.</td>
+    </tr>
+    <tr>
+      <td><code>sidePanel</code></td>
+      <td>Show the extension UI in Chrome's side panel.</td>
+    </tr>
+    <tr>
+      <td><code>scripting</code></td>
+      <td>Run your GeoGebra commands in the GeoGebra page (via its <code>ggbApplet</code> API) to draw the figure.</td>
+    </tr>
+    <tr>
+      <td><code>host_permissions: https://www.geogebra.org/*</code></td>
+      <td>Required for scripting and tab access on the GeoGebra domain only. No other sites are accessed.</td>
+    </tr>
+  </table>
+
+  <h2>4. Third-party AI services</h2>
+  <p>
+    The extension generates a text prompt that you may choose to copy into an external AI service
+    (such as Gemini, ChatGPT, or Claude). The extension does <strong>not</strong> send anything to those
+    services automatically — you copy and paste manually, and any data you share with them is governed by
+    their own privacy policies.
+  </p>
+
+  <h2>5. Remote code</h2>
+  <p>The extension does not load or execute remote code. All code ships inside the published package.</p>
+
+  <h2>6. Children's privacy</h2>
+  <p>The extension does not knowingly collect any data from anyone, including children.</p>
+
+  <h2>7. Changes</h2>
+  <p>If this policy changes, the "Last updated" date above will be revised.</p>
+
+  <h2>8. Contact</h2>
+  <p>Questions about this policy: <a href="mailto:haison8x@gmail.com">haison8x@gmail.com</a></p>
+
+  <footer>GeoGebra AutoDraw AI is an independent tool and is not affiliated with or endorsed by GeoGebra GmbH.</footer>
+</body>
+
+</html>

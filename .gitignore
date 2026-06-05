@@ -1,0 +1,33 @@
+node_modules/
+dist/
+dist-zip/
+.vite/
+
+# Generated at build time (scripts/gen-min-commands.mjs) + release bundle
+public/geometry_commands.min.json
+geogebra-autodraw-ai-v*.zip
+*.local
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Python helper artefacts
+__pycache__/
+*.pyc
+
+# Temp
+tmp/

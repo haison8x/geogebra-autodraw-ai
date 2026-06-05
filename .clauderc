@@ -1,0 +1,33 @@
+# Coding Standards — GeoGebra AutoDraw AI
+
+> Mandatory standards for all code in this project. Read alongside `specs/README.md`.
+
+## Language convention
+- Files under `specs/` are written in **Vietnamese**.
+- Every other file (code, comments, UI strings, error messages, prompt templates, `.md`, JSON, configs) is written in **English** — including user-facing UI strings.
+
+## Architecture
+- Functional components (React), no class components.
+- Clean Architecture / SOLID: separate UI, business logic, and I/O (chrome API).
+- Distributed extension: do NOT mix Popup / Background / Content logic. One `src/` folder per environment.
+- Message-passing types are centralized in `src/shared/messages.ts`. Do not hardcode `action` strings around the codebase.
+
+## Language & formatting
+- TypeScript strict mode. No `any` (use `unknown` + narrow when needed).
+- Keep code concise, split into small functions, name things clearly.
+- Comments: explain "why" only, do not restate what the code already says.
+
+## Error handling
+- Wrap every chrome API / async business call in `try-catch`.
+- Wrap `chrome.runtime.sendMessage` to guard against "Extension context invalidated".
+- A single `evalCommand` failure must NOT stop the batch — collect into `errors[]` (spec §10).
+- Log errors explicitly, return normalized messages to the UI.
+
+## Testing (TDD)
+- Write tests before feature code (Vitest).
+- Tests required for: `sanitize`, prompt generation, history reducer.
+- Pure logic (no chrome API dependency) must be split out so it stays testable.
+
+## Chrome Extension
+- Manifest V3. Two-layer content script: ISOLATED (message passing) + MAIN (ggbApplet.evalCommand), bridged via `window.postMessage` (spec §7.2).
+- No unnecessary permissions. Currently only `tabs`, `storage`.

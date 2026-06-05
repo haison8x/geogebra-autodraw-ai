@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "spike-world-test",
+  "version": "1.0",
+  "description": "Spike P3: kiem tra content script world:MAIN thay duoc window.ggbApplet",
+  "content_scripts": [
+    {
+      "matches": ["https://www.geogebra.org/calculator*"],
+      "js": ["content.js"],
+      "world": "MAIN",
+      "runAt": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,749 @@
+[
+  {
+    "name": "AffineRatio",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/AffineRatio/",
+    "description": "Returns the affine ratio λ of three collinear points A , B and C , where C = A + λ * AB .",
+    "syntax": [
+      "AffineRatio( <Point A>, <Point B>, <Point C> )",
+      "AffineRatio((-1, 1), (1, 1), (4, 1))"
+    ]
+  },
+  {
+    "name": "Angle",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Angle/",
+    "description": "Conic: Returns the angle of twist of a conic section’s major axis (see command Axes ).",
+    "syntax": [
+      "Angle(x²/4+y²/9=1)",
+      "Angle(Vector((1, 1)))",
+      "Angle((1, 1))",
+      "Angle(20)",
+      "Angle(Polygon((4, 1), (2, 4), (1, 1)))",
+      "Angle( <Vector>, <Vector> )",
+      "Angle(Vector((1, 1)), Vector((2, 5)))",
+      "Angle( <Line>, <Line> )",
+      "Angle(y = x + 2, y = 2x + 3) yields 18.43° or the corresponding value in radians .",
+      "Angle(y = x + 2, y = 2x + 3)",
+      "Angle(Line((-2, 0, 0), (0, 0, 2)), Line((2, 0, 0), (0, 0, 2))) yields 90° or the corresponding value in radians .",
+      "Angle(Line((-2, 0, 0), (0, 0, 2)), Line((2, 0, 0), (0, 0, 2)))",
+      "Angle(x + 2,  2x + 3) yields \\(acos \\left( 3 \\cdot \\frac{\\sqrt{10}}{10} \\right)\\).",
+      "Angle(x + 2,  2x + 3)",
+      "Angle(f(x), g(x))",
+      "Angle( <Line>, <Plane> )",
+      "Angle(Line((1, 2, 3),(-2, -2, 0)), z = 0) yields 30.96° or the corresponding value in radians .",
+      "Angle(Line((1, 2, 3),(-2, -2, 0)), z = 0)",
+      "Angle( <Plane>, <Plane> )",
+      "Angle(2x - y + z = 0, z = 0) yields 114.09° or the corresponding value in radians .",
+      "Angle(2x - y + z = 0, z = 0)",
+      "Angle( <Point>, <Apex>, <Point> )",
+      "Angle((1, 1), (1, 4), (4, 2))",
+      "Angle( <Point>, <Apex>, <Angle> )",
+      "Angle((0, 0), (3, 3), 30°) yields 30° and the point (1.9, -1.1) .",
+      "Angle((0, 0), (3, 3), 30°)",
+      "Angle( <Point>, <Point>, <Point>, <Direction> )",
+      "Angle((1, -1, 0),(0, 0, 0),(-1, -1, 0), zAxis)",
+      "Angle((-1, -1, 0),(0, 0, 0),(1, -1, 0), zAxis)",
+      "Angle(A, B, C)",
+      "Angle(C, B, A)"
+    ]
+  },
+  {
+    "name": "AngleBisector",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/AngleBisector/",
+    "description": "Returns both angle bisectors of the lines.",
+    "syntax": [
+      "AngleBisector( <Line>, <Line> )",
+      "AngleBisector(x + y = 1, x - y = 2)",
+      "AngleBisector( <Point>, <Point>, <Point> )",
+      "AngleBisector((1, 1), (4, 4), (7, 1))"
+    ]
+  },
+  {
+    "name": "Arc",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Arc/",
+    "description": "Returns the directed arc (counterclockwise) of the given circle, with endpoints M and N.",
+    "syntax": [
+      "Arc( <Circle>, <Point M >, <Point N> )",
+      "Arc( <Ellipse>, <Point M>, <Point N> )",
+      "Arc( <Circle>, <Parameter Value>, <Parameter Value> )",
+      "Arc( <Ellipse>, <Parameter Value>, <Parameter Value> )"
+    ]
+  },
+  {
+    "name": "Area",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Area/",
+    "description": "Calculates the area of the polygon defined by the given points.",
+    "syntax": [
+      "Area( <Point>, …​, <Point> )",
+      "Area((0, 0), (3, 0), (3, 2), (0, 2))",
+      "Area( <Conic> )",
+      "Area(x^2 + y^2 = 2)",
+      "Area( <Polygon> )"
+    ]
+  },
+  {
+    "name": "AreCollinear",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/AreCollinear/",
+    "description": "Decides if the points are collinear.",
+    "syntax": [
+      "AreCollinear( <Point>, <Point>, <Point> )",
+      "AreCollinear((1, 2), (3, 4), (5, 6))"
+    ]
+  },
+  {
+    "name": "AreConcurrent",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/AreConcurrent/",
+    "description": "Decides if the lines are concurrent. If the lines are parallel, they considered to have a common point in infinity,\nthus this command returns true in this case.",
+    "syntax": [
+      "AreConcurrent( <Line>, <Line>, <Line> )",
+      "AreConcurrent(Line((1, 2), (3, 4)), Line((1, 2), (3, 5)), Line((1, 2), (3, 6)))"
+    ]
+  },
+  {
+    "name": "AreConcyclic",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/AreConcyclic/",
+    "description": "Decides if the points are concyclic.",
+    "syntax": [
+      "AreConcyclic( <Point>, <Point>, <Point>, <Point> )",
+      "AreConcyclic((1, 2), (3, 4), (1, 4), (3, 2))"
+    ]
+  },
+  {
+    "name": "AreCongruent",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/AreCongruent/",
+    "description": "Decides if the objects are congruent.",
+    "syntax": [
+      "AreCongruent( <Object>, <Object> )",
+      "AreCongruent(Circle((0, 0),1),x^2+y^2=1)",
+      "AreCongruent(Circle((1, 1),1),x^2+y^2=1)"
+    ]
+  },
+  {
+    "name": "AreEqual",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/AreEqual/",
+    "description": "Decides if the objects are equal.",
+    "syntax": [
+      "AreEqual( <Object>, <Object> )",
+      "AreEqual(Circle((0, 0),1),x^2+y^2=1)",
+      "AreEqual(Segment((1, 2), (3, 4)), Segment((3, 4), (1, 6))) is different from Segment((1, 2), (3, 4)) == Segment((3, 4), (1, 6)) as the latter compares just the lengths",
+      "AreEqual(Segment((1, 2), (3, 4)), Segment((3, 4), (1, 6)))"
+    ]
+  },
+  {
+    "name": "AreParallel",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/AreParallel/",
+    "description": "Decides if the lines are parallel.",
+    "syntax": [
+      "AreParallel( <Line>, <Line> )",
+      "AreParallel(Line[(1, 2), (3, 4)), Line((5, 6),(7,8)))"
+    ]
+  },
+  {
+    "name": "ArePerpendicular",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/ArePerpendicular/",
+    "description": "Decides if the lines are perpendicular.\nNormally this command computes the result numerically. This behavior can be changed by using the Prove command.",
+    "syntax": [
+      "ArePerpendicular( <Line>, <Line> )",
+      "ArePerpendicular(Line((-1, 0), (0, -1)), Line((0, 0),(2,2)))"
+    ]
+  },
+  {
+    "name": "Barycenter",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Barycenter/",
+    "description": "This command differs among variants of English:",
+    "syntax": [
+      "Barycenter( <List of Points>, <List of Weights> )",
+      "Barycenter({(2, 0), (0, 2), (-2, 0), (0, -2)}, {1, 1, 1, 1}) yields point A(0, 0)",
+      "Barycenter({(2, 0), (0, 2), (-2, 0), (0, -2)}, {1, 1, 1, 1})",
+      "Barycenter({(2, 0), (0, 2), (-2, 0), (0, -2)}, {2, 1, 1, 1}) yields point B(0.4, 0) . The x -coordinate of\nthis point was determined by \\( \\frac{1}{ 2+1+1+1 }*(2*2+1*0+1*(-2)+1*0)\\) = \\(\\frac{1}{ 5 }*2\\) = 0.4",
+      "Barycenter({(2, 0), (0, 2), (-2, 0), (0, -2)}, {2, 1, 1, 1})"
+    ]
+  },
+  {
+    "name": "Centroid",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Centroid/",
+    "description": "Returns the centroid of the polygon.",
+    "syntax": [
+      "Centroid( <Polygon> )",
+      "Centroid(poly1)"
+    ]
+  },
+  {
+    "name": "Circle",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Circle/",
+    "description": "Yields a circle with given center and radius.",
+    "syntax": [
+      "Circle( <Point>, <Radius Number> )",
+      "Circle( <Point>, <Segment> )",
+      "Circle( <Point>, <Point> )",
+      "Circle( <Point>, <Point>, <Point> )",
+      "Circle( <Line>, <Point> )",
+      "Circle( <Point>, <Radius>, <Direction> )",
+      "Circle( <Point>, <Point>, <Direction> )"
+    ]
+  },
+  {
+    "name": "CircularArc",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/CircularArc/",
+    "description": "Creates a circular arc with midpoint between the two points.",
+    "syntax": [
+      "CircularArc( <Midpoint>, <Point A>, <Point B> )"
+    ]
+  },
+  {
+    "name": "CircularSector",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/CircularSector/",
+    "description": "Creates a circular sector with midpoint between the two points.",
+    "syntax": [
+      "CircularSector( <Midpoint>, <Point A>, <Point B> )"
+    ]
+  },
+  {
+    "name": "CircumcircularArc",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/CircumcircularArc/",
+    "description": "Creates a circular arc through three points, where the first point is the starting point and the third point is the\nendpoint of the circumcircular arc.",
+    "syntax": [
+      "CircumcircularArc( <Point>, <Point>, <Point> )"
+    ]
+  },
+  {
+    "name": "CircumcircularSector",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/CircumcircularSector/",
+    "description": "Creates a circular sector whose arc runs through the three points, where the first point is the starting point and the\nthird point is the endpoint of the arc.",
+    "syntax": [
+      "CircumcircularSector( <Point>, <Point>, <Point> )"
+    ]
+  },
+  {
+    "name": "Circumference",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Circumference/",
+    "description": "If the given conic is a circle or ellipse, this command returns its circumference. Otherwise the result is undefined.",
+    "syntax": [
+      "Circumference(Conic)",
+      "Circumference(x^2 + 2y^2 = 1)"
+    ]
+  },
+  {
+    "name": "ClosestPoint",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/ClosestPoint/",
+    "description": "Returns a new point on a path which is the closest to a selected point.",
+    "syntax": [
+      "ClosestPoint( <Path>, <Point> )",
+      "ClosestPoint( <Line>, <Line> )"
+    ]
+  },
+  {
+    "name": "ClosestPointRegion",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/ClosestPointRegion/",
+    "description": "Returns a new point on the region which is the closest to a selected point.",
+    "syntax": [
+      "ClosestPointRegion( <Region>, <Point> )"
+    ]
+  },
+  {
+    "name": "CrossRatio",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/CrossRatio/",
+    "description": "Calculates the cross ratio λ of four collinear points A , B , C and D , where: λ = AffineRatio[B, C, D ] / AffineRatio[A, C, D ].",
+    "syntax": [
+      "CrossRatio( <Point A>, <Point B>, <Point C>, <Point D> )",
+      "CrossRatio((-1, 1), (1, 1), (3, 1), (4, 1))"
+    ]
+  },
+  {
+    "name": "Cubic",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Cubic/",
+    "description": "Gives n -th triangle cubic of the given triangle ABC .",
+    "syntax": [
+      "Cubic( <Point>, <Point>, <Point>, <Number> )",
+      "Cubic(A, B, C, 2)"
+    ]
+  },
+  {
+    "name": "Difference",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Difference/",
+    "description": "Finds the difference of the two polygons.",
+    "syntax": [
+      "Difference( <Polygon>, <Polygon> )"
+    ]
+  },
+  {
+    "name": "Direction",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Direction/",
+    "description": "Yields the direction vector of the line.",
+    "syntax": [
+      "Direction( <Line> )",
+      "Direction(-2x + 3y + 1 = 0)"
+    ]
+  },
+  {
+    "name": "Distance",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Distance/",
+    "description": "Yields the shortest distance between a point and an object.",
+    "syntax": [
+      "Distance( <Point>, <Object> )",
+      "Distance((2, 1), x^2 + (y - 1)^2 = 1) yields 1",
+      "Distance((2, 1), x^2 + (y - 1)^2 = 1)",
+      "Distance((2, 1, 2), (1, 3, 0)) yields 3",
+      "Distance((2, 1, 2), (1, 3, 0))",
+      "Distance(A, f)",
+      "Distance( <Line>, <Line> )",
+      "Distance(y = x + 3, y = x + 1) yields 1.41",
+      "Distance(y = x + 3, y = x + 1)",
+      "Distance(y = 3x + 1, y = x + 1) yields 0",
+      "Distance(y = 3x + 1, y = x + 1)",
+      "Distance(a, b)",
+      "Distance( <Plane>, <Plane> )",
+      "Distance(eq1, eq2)"
+    ]
+  },
+  {
+    "name": "Envelope",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Envelope/",
+    "description": "Creates the envelope equation of a set of output paths while the\nmoving point is bound to another object.",
+    "syntax": [
+      "Envelope( <Path>, <Point> )"
+    ]
+  },
+  {
+    "name": "Incircle",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Incircle/",
+    "description": "Returns Incircle of the triangle formed by the\nthree Points.",
+    "syntax": [
+      "Incircle( <Point>, <Point>, <Point> )",
+      "Incircle(O, A, B)"
+    ]
+  },
+  {
+    "name": "InteriorAngles",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/InteriorAngles/",
+    "description": "Creates all the interior angles of the given polygon.",
+    "syntax": [
+      "InteriorAngles( <Polygon> )"
+    ]
+  },
+  {
+    "name": "Intersect",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Intersect/",
+    "description": "Yields the intersection points of two objects.",
+    "syntax": [
+      "Intersect( <Object>, <Object> )",
+      "Intersect(a, c)",
+      "Intersect(y = x + 3, Curve(t, 2t, t, 0, 10)) yields A =(3, 6).",
+      "Intersect(y = x + 3, Curve(t, 2t, t, 0, 10))",
+      "Intersect(Curve(2s, 5s, s,-10, 10), Curve(t, 2t, t, -10, 10)) yields A =(0, 0).",
+      "Intersect(Curve(2s, 5s, s,-10, 10), Curve(t, 2t, t, -10, 10))",
+      "Intersect( <Object>, <Object>, <Index of Intersection Point> )",
+      "Intersect(a, b, 2)",
+      "Intersect( <Object>, <Object>, <Initial Point> )",
+      "Intersect(a, b, C)",
+      "Intersect( <Function>, <Function>, <Start x-Value>, <End x-Value> )",
+      "Intersect(f, g, -1, 2)",
+      "Intersect( <Curve 1>, <Curve 2>, <Parameter 1>, <Parameter 2> )",
+      "Intersect(a, b, 0, 2)",
+      "Intersect( <Function>, <Function> )",
+      "Intersect(f(x), g(x))",
+      "Intersect( <Line> , <Object> ) creates the intersection point(s) of a line and a plane, segment, polygon, conic,\netc.",
+      "Intersect( <Line> , <Object> )",
+      "Intersect( <Plane> , <Object> ) creates the intersection point(s) of a plane and segment, polygon, conic, etc.",
+      "Intersect( <Plane> , <Object> )",
+      "Intersect( <Conic>, <Conic> ) creates the intersection point(s) of two conics",
+      "Intersect( <Conic>, <Conic> )",
+      "Intersect( <Plane>, <Plane> ) creates the intersection line of two planes",
+      "Intersect( <Plane>, <Plane> )",
+      "Intersect( <Plane>, <Polyhedron> ) creates the polygon(s) intersection of a plane and a polyhedron.",
+      "Intersect( <Plane>, <Polyhedron> )",
+      "Intersect( <Sphere>, <Sphere> ) creates the circle intersection of two spheres",
+      "Intersect( <Sphere>, <Sphere> )",
+      "Intersect( <Plane>, <Quadric> ) creates the conic intersection of the plane and the quadric (sphere, cone,\ncylinder, …​)",
+      "Intersect( <Plane>, <Quadric> )"
+    ]
+  },
+  {
+    "name": "IntersectPath",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/IntersectPath/",
+    "description": "Creates the intersection path between line and polygon.",
+    "syntax": [
+      "IntersectPath( <Line>, <Polygon> )",
+      "IntersectPath(a, triangle)",
+      "IntersectPath( <Polygon>, <Polygon> )",
+      "IntersectPath(quadrilateral, triangle)",
+      "IntersectPath( <Plane>, <Polygon> )",
+      "IntersectPath( <Plane>, <Quadric> )",
+      "IntersectPath(a, sphere)"
+    ]
+  },
+  {
+    "name": "IsInRegion",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/IsInRegion/",
+    "description": "Returns true if the point is in given region and false otherwise.",
+    "syntax": [
+      "IsInRegion( <Point>, <Region> )",
+      "IsInRegion((1,2), Polygon((0,0), (2,0), (1,3)))"
+    ]
+  },
+  {
+    "name": "IsTangent",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/IsTangent/",
+    "description": "Decides if the line is tangent to the conic.",
+    "syntax": [
+      "IsTangent( <Line>, <Conic> )",
+      "IsTangent(Line((0,0),(1,0)),Circle((0,1),1))"
+    ]
+  },
+  {
+    "name": "Length",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Length/",
+    "description": "Yields the length of the object.",
+    "syntax": [
+      "Length( <Object> )",
+      "Length( <Vector> ) yields the length of the vector.",
+      "Length( <Vector> )",
+      "Length( <Point> ) yields the length of the position vector of the given point.",
+      "Length( <Point> )",
+      "Length( <List> ) yields the length of the list, which is the number of elements in the list.",
+      "Length( <List> )",
+      "Length( <Text> ) yields the number of characters in the text.",
+      "Length( <Text> )",
+      "Length( <Locus> ) returns the number of points that the given locus is made up of. Use Perimeter (Locus) to get the length of the locus itself. For details see the article about First Command .",
+      "Length( <Locus> )",
+      "Length( <Arc> ) returns the arc length (i.e. just the length of the curved section) of an arc or sector.",
+      "Length( <Arc> )",
+      "Length( <Function>, <Start x-Value>, <End x-Value> )",
+      "Length(2x, 0, 1)",
+      "Length( <Function>, <Start Point>, <End Point> )",
+      "Length( <Curve>, <Start t-Value>, <End t-Value> )",
+      "Length( <Curve>, <Start Point>, <End Point> )",
+      "Length(2 x, 0, 1)",
+      "Length( <Function>, <Variable>, <Start x-Value>, <End x-Value> )",
+      "Length(2 a, a,  0, 1)"
+    ]
+  },
+  {
+    "name": "Line",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Line/",
+    "description": "Creates a line through two points A and B .",
+    "syntax": [
+      "Line( <Point>, <Point> )",
+      "Line( <Point>, <Parallel Line> )",
+      "Line( <Point>, <Direction Vector> )"
+    ]
+  },
+  {
+    "name": "Locus",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Locus/",
+    "description": "Returns the locus curve of the point Q , which depends on the point P .",
+    "syntax": [
+      "Locus( <Point Creating Locus Line Q>, <Point P>)",
+      "Locus( <Point Creating Locus Line Q>, <Slider t>)",
+      "Locus( <Slopefield>, <Point> )",
+      "Locus( <f(x, y)>, <Point> )"
+    ]
+  },
+  {
+    "name": "LocusEquation",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/LocusEquation/",
+    "description": "Calculates the equation of a Locus and plots this as an Implicit Curve.",
+    "syntax": [
+      "LocusEquation( <Locus> )",
+      "LocusEquation( <Point Creating Locus Line Q>, <Point P> )",
+      "LocusEquation(Q,P)",
+      "LocusEquation( <Boolean Expression>, <Free Point> )",
+      "LocusEquation(AreCollinear(A, B, C), A)"
+    ]
+  },
+  {
+    "name": "Midpoint",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Midpoint/",
+    "description": "Returns the midpoint of the segment.",
+    "syntax": [
+      "Midpoint( <Segment> )",
+      "Midpoint(s)",
+      "Midpoint( <Conic> )",
+      "Midpoint(x^2 + y^2 = 4)",
+      "Midpoint( <Interval> )",
+      "Midpoint(2 < x < 4)",
+      "Midpoint( <Point>, <Point> )",
+      "Midpoint((1, 1), (5, 1))",
+      "Midpoint( <Quadric> )",
+      "Midpoint(x^2 + y^2 + z^2 = 1)"
+    ]
+  },
+  {
+    "name": "PathParameter",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/PathParameter/",
+    "description": "Returns the parameter (i.e. a number ranging from 0 to 1 ) of the point that belongs to a path .",
+    "syntax": [
+      "PathParameter( <Point On Path> )",
+      "PathParameter(A)"
+    ]
+  },
+  {
+    "name": "Perimeter",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Perimeter/",
+    "description": "Returns the perimeter of the polygon.",
+    "syntax": [
+      "Perimeter( <Polygon> )",
+      "Perimeter(Polygon((1, 2), (3, 2), (4, 3)))",
+      "Perimeter( <Conic> )",
+      "Perimeter(x^2 + 2y^2 = 1)",
+      "Perimeter( <Locus> )"
+    ]
+  },
+  {
+    "name": "PerpendicularBisector",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/PerpendicularBisector/",
+    "description": "Yields the perpendicular bisector of a segment.",
+    "syntax": [
+      "PerpendicularBisector( <Segment> )",
+      "PerpendicularBisector( <Point>, <Point> )",
+      "PerpendicularBisector( <Point>, <Point>, <Direction>)"
+    ]
+  },
+  {
+    "name": "PerpendicularLine",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/PerpendicularLine/",
+    "description": "Creates a line through the point perpendicular to the given line.",
+    "syntax": [
+      "PerpendicularLine( <Point>, <Line> )",
+      "PerpendicularLine(A, c)",
+      "PerpendicularLine( <Point>, <Segment> )",
+      "PerpendicularLine( <Point>, <Vector> )",
+      "PerpendicularLine(A, u)",
+      "PerpendicularLine( <Point>, <Plane> )",
+      "PerpendicularLine( <Line> , <Line> )",
+      "PerpendicularLine( <Point>, <Direction>, <Direction> )",
+      "PerpendicularLine( <Point>, <Line>, <Context> )",
+      "PerpendicularLine( <Point>, <Line>, <Plane> ) creates a perpendicular line to the given line through the point and\nparallel to the plane.",
+      "PerpendicularLine( <Point>, <Line>, space ) creates a perpendicular line to the given line through the point. The\ntwo lines have an intersection point. This command yields undefined if the point is on the line in 3D."
+    ]
+  },
+  {
+    "name": "Point",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Point/",
+    "description": "Returns a point on the geometric object. The resulting point can be moved along the path .",
+    "syntax": [
+      "Point( <Object> )",
+      "Point( <Object>, <Parameter> )",
+      "Point( <Point>, <Vector> )",
+      "Point( <List> )",
+      "Point({1, 2})"
+    ]
+  },
+  {
+    "name": "PointIn",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/PointIn/",
+    "description": "Returns a point restricted to given region .",
+    "syntax": [
+      "PointIn( <Region> )"
+    ]
+  },
+  {
+    "name": "Polygon",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Polygon/",
+    "description": "Returns a polygon defined by the given points.",
+    "syntax": [
+      "Polygon( <Point>, …​, <Point> )",
+      "Polygon((1, 1), (3, 0), (3, 2), (0, 4))",
+      "Polygon( <Point>, <Point>, <Number of Vertices> )",
+      "Polygon((1, 1), (4, 1), 6)",
+      "Polygon( <List of Points> )",
+      "Polygon({(0, 0), (2, 1), (1, 3)})",
+      "Polygon( <Point>, <Point>, <Number of Vertices n>, <Direction> )"
+    ]
+  },
+  {
+    "name": "Polyline",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Polyline/",
+    "description": "Creates an open polygonal chain (i.e. a connected series of segments) having the initial vertex in the first point of\nthe list, and the final vertex in the last point of the list.",
+    "syntax": [
+      "Polyline( <List of Points> )",
+      "Polyline( <Point>, …​, <Point> )",
+      "Polyline((1, 3), (4, 3), (?,?), (6, 2), (4, -2), (2, -2))"
+    ]
+  },
+  {
+    "name": "Prove",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Prove/",
+    "description": "Returns whether the given boolean expression is true or false in general.",
+    "syntax": [
+      "Prove( <Boolean Expression> )",
+      "Prove(AreCollinear(A,B,C))",
+      "Prove(p∥q)"
+    ]
+  },
+  {
+    "name": "ProveDetails",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/ProveDetails/",
+    "description": "Returns some details of the result of the automated proof.",
+    "syntax": [
+      "ProveDetails( <Boolean Expression> )",
+      "ProveDetails(p∥q)",
+      "ProveDetails(C==D)",
+      "ProveDetails(a==b+c)"
+    ]
+  },
+  {
+    "name": "Radius",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Radius/",
+    "description": "Returns the radius of a conic.",
+    "syntax": [
+      "Radius( <Conic> )",
+      "Radius(c)",
+      "Radius((x - 2)² + (y - 2)² = 16)"
+    ]
+  },
+  {
+    "name": "RandomPointIn",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/RandomPointIn/",
+    "description": "Creates a random point inside a given polygon or closed conic.",
+    "syntax": [
+      "RandomPointIn( <Region> )",
+      "RandomPointIn( <List of Points> )",
+      "RandomPointIn(Polygon(A,B,C))",
+      "RandomPointIn(A,B,C)",
+      "RandomPointIn( <xMin>, <xMax>, <yMin>, <yMax> )"
+    ]
+  },
+  {
+    "name": "Ray",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Ray/",
+    "description": "Creates a ray starting at a point through a point.",
+    "syntax": [
+      "Ray( <Start Point>, <Point> )",
+      "Ray( <Start Point>, <Direction Vector> )"
+    ]
+  },
+  {
+    "name": "RigidPolygon",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/RigidPolygon/",
+    "description": "Creates a copy of any polygon that can only be translated by dragging its first vertex and rotated by dragging its\nsecond vertex.",
+    "syntax": [
+      "RigidPolygon( <Polygon> )",
+      "RigidPolygon( <Polygon>, <Offset x>, <Offset y> )",
+      "RigidPolygon( <Free Point>, …​, <Free Point> )"
+    ]
+  },
+  {
+    "name": "Sector",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Sector/",
+    "description": "Yields a conic sector between two points on the conic section and calculates its area.",
+    "syntax": [
+      "Sector( <Conic>, <Point>, <Point> )",
+      "Sector(c, D, E)",
+      "Sector(c, A, B)",
+      "Sector( <Conic>, <Parameter Value>, <Parameter Value> )",
+      "Sector(c, 0, 3/4 π)"
+    ]
+  },
+  {
+    "name": "Segment",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Segment/",
+    "description": "This command differs among variants of English:",
+    "syntax": [
+      "Segment( <Point>, <Point> )",
+      "Segment( <Point>, <Length> )"
+    ]
+  },
+  {
+    "name": "Semicircle",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Semicircle/",
+    "description": "Creates a semicircle above the segment between the two points and displays its length in Algebra View .",
+    "syntax": [
+      "Semicircle( <Point>, <Point> )"
+    ]
+  },
+  {
+    "name": "Slope",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Slope/",
+    "description": "Returns the slope of the given line.",
+    "syntax": [
+      "Slope( <Line> )"
+    ]
+  },
+  {
+    "name": "Tangent",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Tangent/",
+    "description": "Creates (all) tangents through the point to the conic section.",
+    "syntax": [
+      "Tangent( <Point>, <Conic> )",
+      "Tangent((5, 4), 4x^2 - 5y^2 = 20)",
+      "Tangent( <Point>, <Function> )",
+      "Tangent((1, 0), x^2)",
+      "Tangent( <Point on Curve>, <Curve> )",
+      "Tangent((0, 1), Curve(cos(t), sin(t), t, 0, π))",
+      "Tangent( <x-Value>, <Function> )",
+      "Tangent(1, x^2)",
+      "Tangent( <Line>, <Conic> )",
+      "Tangent(y = 4, x^2 + y^2 = 4)",
+      "Tangent( <Circle>, <Circle> )",
+      "Tangent(x^2 + y^2 = 4, (x - 6)^2 + y^2 = 4)",
+      "Tangent( <Point>, <Spline> )",
+      "Tangent(A, Spline({A, B, C}))",
+      "Tangent( <Point>, <Implicit Curve> )",
+      "Tangent((1,1), x^2+y^2=1)"
+    ]
+  },
+  {
+    "name": "TriangleCenter",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/TriangleCenter/",
+    "description": "This command differs among variants of English:",
+    "syntax": [
+      "TriangleCenter( <Point>, <Point>, <Point>, <Number> )",
+      "TriangleCenter(A, B, C, 2)"
+    ]
+  },
+  {
+    "name": "TriangleCurve",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/TriangleCurve/",
+    "description": "Creates implicit polynomial, whose equation in barycentric coordinates with respect to\npoints P , Q , R is given by the fourth parameter; the barycentric coordinates are referred to as A , B , C .",
+    "syntax": [
+      "TriangleCurve( <Point P>, <Point Q>, <Point R>, <Equation in A, B, C> )",
+      "TriangleCurve(P, Q, R, (A - B)*(B - C)*(C - A) = 0)",
+      "TriangleCurve(A, B, C, A*C = 1/8)",
+      "TriangleCurve(A, B, C, A² + B² + C² - 2B C - 2C A - 2A B = 0)",
+      "TriangleCurve(A, B, C, B C + C A + A B = 0)"
+    ]
+  },
+  {
+    "name": "Trilinear",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Trilinear/",
+    "description": "creates a point whose trilinear coordinates are the given numbers\nwith respect to triangle with given points.",
+    "syntax": [
+      "Trilinear( <Point>, <Point>, <Point>, <Number>, <Number>, <Number> )"
+    ]
+  },
+  {
+    "name": "Union",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Union/",
+    "description": "Joins the two lists and removes elements that appear multiple times.",
+    "syntax": [
+      "Union( <List>, <List> )",
+      "Union( {1, 2, 3, 4, 5}, {3, 2, 1, 7} )",
+      "Union( <Polygon>, <Polygon> )"
+    ]
+  },
+  {
+    "name": "Type",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Type/",
+    "description": "For conics and quadrics this command returns a number representing the conic/quadric type according to the table below.\nIn this context, an empty conic (or quadric) is one whose coefficients are defined, but that does not contain any real\npoint, e.g. x 2 + y 2 = -1. For conics, GeoGebra distinguishes double line (special case of parallel lines with distance\n0) and single line (special case of circle with infinite diameter, may result from circle inversion). For quadrics there\nis no such distinction.",
+    "syntax": [
+      "Type( <Object> )",
+      "Type(x²+y²=1)"
+    ]
+  },
+  {
+    "name": "Vertex",
+    "url": "https://geogebra.github.io/docs/manual/en/commands/Vertex/",
+    "description": "Returns (all) vertices of the conic section.",
+    "syntax": [
+      "Vertex( <Conic> )",
+      "Vertex( <Inequality> )",
+      "Vertex((x + y < 3) && (x - y > 1)) returns point A = (2, 1) .",
+      "Vertex((x + y < 3) && (x - y > 1))",
+      "Vertex((y > x²) ∧ (y < x)) returns two points A = (0, 0) and B = (1, 1) .",
+      "Vertex((y > x²) ∧ (y < x))",
+      "Vertex( <Polygon> )",
+      "Vertex( <Polygon>, <Index n> )",
+      "Vertex( <Segment>, <Index> )"
+    ]
+  }
+]
