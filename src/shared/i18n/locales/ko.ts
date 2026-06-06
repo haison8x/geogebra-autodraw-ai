@@ -27,6 +27,7 @@ export const ko: Messages = {
   helpTip1: '보조선과 라벨은 깔끔한 도형을 위해 자동으로 숨겨집니다.',
   helpTip2: '명령 이름은 영어여야 합니다.',
   helpTip3: '확장 프로그램은 geogebra.org/calculator 탭에서만 작동합니다.',
+  helpTip4: 'AI가 작도 방법을 스스로 선택하는데 틀릴 때가 있습니다. 문제를 그대로 붙여넣는 대신 무엇을 어떤 순서로 작도할지 구체적으로 설명하면 더 정확한 결과를 얻을 수 있습니다.',
   helpOpenCalculator: 'GeoGebra Calculator 열기',
   needCalcTab: '그리기를 시작하려면 GeoGebra Calculator 탭을 여세요.',
   drawMode: '그리기 모드',

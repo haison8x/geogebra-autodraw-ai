@@ -27,6 +27,7 @@ export const ja: Messages = {
   helpTip1: '補助線とラベルは自動的に非表示になり、図が見やすくなります。',
   helpTip2: 'コマンド名は英語にする必要があります。',
   helpTip3: '拡張機能は geogebra.org/calculator タブでのみ動作します。',
+  helpTip4: 'AI は作図方法を自分で選びますが、間違えることがあります。問題をそのまま貼り付けるのではなく、何をどの順番で作図するかを具体的に説明すると、AI の精度が上がります。',
   helpOpenCalculator: 'GeoGebra Calculator を開く',
   needCalcTab: '描画を始めるには GeoGebra Calculator タブを開いてください。',
   drawMode: '描画モード',

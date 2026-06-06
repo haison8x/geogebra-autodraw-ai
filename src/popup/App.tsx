@@ -1,232 +1,43 @@
 // Popup UI — spec §3.1, §6, §10.1, §12, §16. Enter problem → generate prompt → copy → paste
 // commands → sanitize → editable preview → pick draw mode → Execute → track progress.
 // Fully localized (Epic 6) via t(locale, key).
-import { useCallback, useEffect, useRef, useState } from 'react';
-import type { ErrorItem, Message } from '@/shared/messages';
-import { DEFAULT_DELAY_MS } from '@/shared/messages';
-import { sanitizeCommands } from '@/shared/sanitize';
-import { buildPrompt } from '@/shared/promptTemplate';
-import { loadMinCommands, formatCatalog } from '@/shared/catalog';
-import {
-  getState,
-  patchState,
-  pushHistory,
-  type HistoryItem,
-  type Settings,
-} from '@/shared/storage';
-import { t, SUPPORTED_LOCALES, LOCALE_NATIVE_NAMES, type Locale } from '@/shared/i18n';
-
-type Phase = 'idle' | 'running' | 'done';
-
-const CALC_URL = 'https://www.geogebra.org/calculator';
-const isCalc = (url?: string) => url?.startsWith(CALC_URL) ?? false;
-
-// Open the Calculator: focus an existing tab, else create one.
-async function openCalculator(): Promise<void> {
-  try {
-    const existing = await chrome.tabs.query({ url: `${CALC_URL}*` });
-    const tab = existing[0];
-    if (tab?.id != null) {
-      await chrome.tabs.update(tab.id, { active: true });
-      if (tab.windowId != null) await chrome.windows.update(tab.windowId, { focused: true });
-    } else {
-      await chrome.tabs.create({ url: CALC_URL });
-    }
-  } catch (e) {
-    console.error('openCalculator failed', e);
-  }
-}
+import { SUPPORTED_LOCALES, LOCALE_NATIVE_NAMES, type Locale } from '@/shared/i18n';
+import { useAppState } from './hooks/useAppState';
+import { StatusPanel } from './components/StatusPanel';
+import { HelpPanel } from './components/HelpPanel';
+import { openCalculator } from './utils';
 
 export default function App() {
-  const [problem, setProblem] = useState('');
-  const [commandsRaw, setCommandsRaw] = useState('');
-  const [clearFirst, setClearFirst] = useState(true);
-  const [locale, setLocale] = useState<Locale>('en');
-  const [prompt, setPrompt] = useState('');
-  const [catalog, setCatalog] = useState('');
-  const [catalogErr, setCatalogErr] = useState('');
-  const [copied, setCopied] = useState(false);
-  const [showHelp, setShowHelp] = useState(false);
-
-  const [phase, setPhase] = useState<Phase>('idle');
-  const [progress, setProgress] = useState({ index: 0, total: 0 });
-  const [errors, setErrors] = useState<ErrorItem[]>([]);
-  const [history, setHistory] = useState<HistoryItem[]>([]);
-  const [onCalc, setOnCalc] = useState(true); // is the active tab a Calculator tab?
-
-  const restored = useRef(false);
-
-  const tr = useCallback(
-    (key: Parameters<typeof t>[1], vars?: Record<string, string | number>) => t(locale, key, vars),
-    [locale],
-  );
-
-  // Load the command catalog + restore state (spec §12: last problem/commands, §16: locale).
-  useEffect(() => {
-    loadMinCommands()
-      .then((cmds) => setCatalog(formatCatalog(cmds)))
-      .catch((e) => setCatalogErr(String(e?.message ?? e)));
-
-    getState().then((s) => {
-      setProblem(s.lastProblem);
-      setCommandsRaw(s.lastCommandsRaw);
-      setClearFirst(s.settings.clearFirstDefault);
-      setLocale(s.settings.locale);
-      setHistory(s.history);
-      restored.current = true;
-    });
-  }, []);
-
-  // Listen for progress from the Background (spec §5).
-  useEffect(() => {
-    const listener = (msg: Message) => {
-      switch (msg.action) {
-        case 'PROGRESS':
-          setPhase('running');
-          setProgress({ index: msg.payload.index + 1, total: msg.payload.total });
-          break;
-        case 'COMMAND_ERROR':
-          setErrors((prev) => [...prev, msg.payload]);
-          break;
-        case 'DONE':
-          setPhase('done');
-          setProgress({ index: msg.payload.executed, total: msg.payload.executed });
-          setErrors(msg.payload.errors);
-          break;
-      }
-    };
-    chrome.runtime.onMessage.addListener(listener);
-    return () => chrome.runtime.onMessage.removeListener(listener);
-  }, []);
-
-  // Track whether the active tab is a GeoGebra Calculator tab (drives the gating banner).
-  useEffect(() => {
-    const refresh = () => {
-      chrome.tabs.query({ active: true, lastFocusedWindow: true }).then((tabs) => {
-        setOnCalc(isCalc(tabs[0]?.url));
-      }, () => {});
-    };
-    refresh();
-    const onActivated = () => refresh();
-    const onUpdated = (_id: number, info: { status?: string; url?: string }) => {
-      if (info.status === 'complete' || info.url !== undefined) refresh();
-    };
-    chrome.tabs.onActivated.addListener(onActivated);
-    chrome.tabs.onUpdated.addListener(onUpdated);
-    chrome.windows?.onFocusChanged.addListener(onActivated);
-    return () => {
-      chrome.tabs.onActivated.removeListener(onActivated);
-      chrome.tabs.onUpdated.removeListener(onUpdated);
-      chrome.windows?.onFocusChanged.removeListener(onActivated);
-    };
-  }, []);
-
-  // Persist last problem (lightly debounced).
-  useEffect(() => {
-    if (!restored.current) return;
-    const t2 = setTimeout(() => void patchState({ lastProblem: problem }), 400);
-    return () => clearTimeout(t2);
-  }, [problem]);
-
-  useEffect(() => {
-    if (!restored.current) return;
-    const t2 = setTimeout(() => void patchState({ lastCommandsRaw: commandsRaw }), 400);
-    return () => clearTimeout(t2);
-  }, [commandsRaw]);
-
-  const persistSettings = useCallback(
-    (next: Partial<Settings>) => {
-      const settings: Settings = {
-        delayMs: DEFAULT_DELAY_MS,
-        clearFirstDefault: clearFirst,
-        locale,
-        ...next,
-      };
-      void patchState({ settings });
-    },
-    [clearFirst, locale],
-  );
-
-  const handleGeneratePrompt = useCallback(() => {
-    if (!problem.trim() || !catalog) return;
-    setPrompt(buildPrompt(problem, catalog));
-    setCopied(false);
-  }, [problem, catalog]);
-
-  const handleCopy = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(prompt);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch (e) {
-      console.error('clipboard failed', e);
-    }
-  }, [prompt]);
-
-  // Paste AI commands → auto sanitize (spec §10.1).
-  const handlePasteCommands = useCallback((e: React.ClipboardEvent<HTMLTextAreaElement>) => {
-    const text = e.clipboardData.getData('text');
-    if (!text) return;
-    e.preventDefault();
-    setCommandsRaw(sanitizeCommands(text).join('\n'));
-  }, []);
-
-  const handleClearCommands = useCallback(() => setCommandsRaw(''), []);
-
-  const setMode = useCallback(
-    (mode: boolean) => {
-      setClearFirst(mode);
-      persistSettings({ clearFirstDefault: mode });
-    },
-    [persistSettings],
-  );
-
-  const changeLocale = useCallback(
-    (next: Locale) => {
-      setLocale(next);
-      persistSettings({ locale: next });
-    },
-    [persistSettings],
-  );
-
-  const handleExecute = useCallback(async () => {
-    const commands = sanitizeCommands(commandsRaw);
-    if (commands.length === 0) return;
-
-    setPhase('running');
-    setProgress({ index: 0, total: commands.length });
-    setErrors([]);
-
-    // Record history (FIFO ≤ 20).
-    const item: HistoryItem = { id: String(Date.now()), problem, commands };
-    const nextHistory = pushHistory(history, item);
-    setHistory(nextHistory);
-    void patchState({ history: nextHistory });
-
-    const msg: Message = { action: 'EXECUTE_COMMANDS', payload: { commands, clearFirst } };
-    try {
-      await chrome.runtime.sendMessage(msg);
-    } catch (e) {
-      console.error('sendMessage EXECUTE_COMMANDS failed', e);
-    }
-  }, [commandsRaw, problem, history, clearFirst]);
-
-  const handleClearCanvas = useCallback(async () => {
-    const msg: Message = { action: 'CLEAR_CANVAS', payload: {} };
-    try {
-      await chrome.runtime.sendMessage(msg);
-    } catch (e) {
-      console.error('sendMessage CLEAR_CANVAS failed', e);
-    }
-  }, []);
-
-  const loadHistory = useCallback((item: HistoryItem) => {
-    setProblem(item.problem);
-    setCommandsRaw(item.commands.join('\n'));
-  }, []);
-
-  const commandCount = sanitizeCommands(commandsRaw).length;
-  const canExecute = commandCount > 0 && phase !== 'running' && onCalc;
+  const {
+    problem,
+    setProblem,
+    commandsRaw,
+    setCommandsRaw,
+    clearFirst,
+    locale,
+    catalog,
+    catalogErr,
+    copied,
+    showHelp,
+    setShowHelp,
+    phase,
+    progress,
+    errors,
+    history,
+    onCalc,
+    tr,
+    commandCount,
+    canExecute,
+    handleCopyPrompt,
+    handlePasteCommands,
+    handleClearCommands,
+    setMode,
+    changeLocale,
+    handleExecute,
+    handleClearCanvas,
+    loadHistory,
+    commandsTextareaRef,
+  } = useAppState();
 
   return (
     <div className="relative space-y-3 p-4 text-sm">
@@ -289,28 +100,19 @@ export default function App() {
       </label>
 
       <button
-        className="w-full rounded bg-slate-700 px-3 py-2 font-medium text-white disabled:opacity-50"
+        className="w-full rounded bg-emerald-600 px-3 py-2 font-medium text-white disabled:opacity-50"
         disabled={!problem.trim() || !catalog}
-        onClick={handleGeneratePrompt}
+        onClick={handleCopyPrompt}
       >
-        {tr('generatePrompt')}
+        {copied ? tr('copied') : tr('copyPrompt')}
       </button>
       {catalogErr && <p className="text-xs text-red-600">{tr('catalogError', { error: catalogErr })}</p>}
-
-      {/* 2. Generated prompt + copy */}
-      {prompt && (
-        <div className="space-y-1">
-          <textarea className="w-full rounded border bg-slate-50 p-2 font-mono text-xs" rows={6} readOnly value={prompt} />
-          <button className="w-full rounded bg-emerald-600 px-3 py-2 font-medium text-white" onClick={handleCopy}>
-            {copied ? tr('copied') : tr('copyPrompt')}
-          </button>
-        </div>
-      )}
 
       {/* 3. AI commands (paste → sanitize → editable) */}
       <label className="block">
         <span className="font-medium">{tr('commandsLabel')}</span>
         <textarea
+          ref={commandsTextareaRef}
           className="mt-1 w-full rounded border p-2 font-mono text-xs"
           rows={6}
           placeholder={tr('commandsPlaceholder')}
@@ -380,85 +182,6 @@ export default function App() {
           </ul>
         </details>
       )}
-    </div>
-  );
-}
-
-function StatusPanel({
-  phase,
-  progress,
-  errors,
-  tr,
-}: {
-  phase: Phase;
-  progress: { index: number; total: number };
-  errors: ErrorItem[];
-  tr: (key: Parameters<typeof t>[1], vars?: Record<string, string | number>) => string;
-}) {
-  if (phase === 'idle') return null;
-  return (
-    <div className="rounded border p-2 text-xs">
-      {phase === 'running' && <p>{tr('running', { index: progress.index, total: progress.total })}</p>}
-      {phase === 'done' && (
-        <p className={errors.length ? 'text-amber-700' : 'text-emerald-700'}>
-          {errors.length
-            ? tr('doneErrors', { total: progress.total, errors: errors.length })
-            : tr('done', { total: progress.total })}
-        </p>
-      )}
-      {errors.length > 0 && (
-        <ul className="mt-1 space-y-0.5 text-red-600">
-          {errors.map((e) => (
-            <li key={e.index}>
-              {tr('errorLine', { line: e.index + 1 })} <code>{e.command}</code> — {e.message}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-}
-
-type Tr = (key: Parameters<typeof t>[1], vars?: Record<string, string | number>) => string;
-
-const HELP_STEP_KEYS = [
-  'helpStep1',
-  'helpStep2',
-  'helpStep3',
-  'helpStep4',
-  'helpStep5',
-  'helpStep6',
-  'helpStep7',
-] as const;
-const HELP_TIP_KEYS = ['helpTip1', 'helpTip2', 'helpTip3'] as const;
-
-function HelpPanel({ tr, onClose }: { tr: Tr; onClose: () => void }) {
-  return (
-    <div className="absolute inset-0 z-50 overflow-y-auto bg-white p-4 text-sm">
-      <div className="mb-2 flex items-center justify-between">
-        <h2 className="text-base font-bold">{tr('helpTitle')}</h2>
-        <button type="button" className="rounded border px-2 py-1" onClick={onClose}>
-          {tr('helpClose')}
-        </button>
-      </div>
-
-      <h3 className="mt-2 font-medium">{tr('helpStepsTitle')}</h3>
-      <ol className="mt-1 list-decimal space-y-1 pl-5">
-        {HELP_STEP_KEYS.map((k) => (
-          <li key={k}>{tr(k)}</li>
-        ))}
-      </ol>
-
-      <h3 className="mt-3 font-medium">{tr('helpTipsTitle')}</h3>
-      <ul className="mt-1 list-disc space-y-1 pl-5 text-slate-600">
-        {HELP_TIP_KEYS.map((k) => (
-          <li key={k}>{tr(k)}</li>
-        ))}
-      </ul>
-
-      <button type="button" className="mt-3 text-blue-700 underline" onClick={() => void openCalculator()}>
-        {tr('helpOpenCalculator')}
-      </button>
     </div>
   );
 }

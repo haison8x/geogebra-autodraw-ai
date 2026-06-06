@@ -27,6 +27,7 @@ export const pt: Messages = {
   helpTip1: 'Linhas auxiliares e rótulos são ocultados automaticamente para uma figura limpa.',
   helpTip2: 'Os nomes dos comandos devem estar em inglês.',
   helpTip3: 'A extensão só funciona em uma aba geogebra.org/calculator.',
+  helpTip4: 'A IA escolhe seu próprio método de construção e às vezes erra. Em vez de colar o enunciado tal como está, descreva o que construir e em que ordem — a IA será mais precisa.',
   helpOpenCalculator: 'Abrir GeoGebra Calculator',
   needCalcTab: 'Abra uma aba do GeoGebra Calculator para começar a desenhar.',
   drawMode: 'Modo de desenho',

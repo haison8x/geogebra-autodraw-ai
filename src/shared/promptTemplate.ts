@@ -5,13 +5,19 @@ problem using a list of GeoGebra commands (one command per line, NO explanations
 NO numbering, NO markdown).
 
 PROBLEM:
+<problem>
 {{PROBLEM}}
+</problem>
 
 CONSTRAINTS:
-- Use the geometry commands from the allowed catalog below. In addition you MAY use these
-  visibility commands to keep the figure clean: ShowLabel( <Object>, <true|false> ) and
-  SetVisibleInView( <Object>, 1, <true|false> ).
+- Use the geometry commands from the allowed catalog below. In addition you MAY use:
+  ShowLabel( <Object>, <true|false> ) and SetVisibleInView( <Object>, 1, <true|false> ) for visibility;
+  Reflect( <Object>, <Mirror> ) for reflection (Mirror = point, line, or segment).
 - Command names MUST be in English (English command names), e.g. Polygon, Segment, Midpoint.
+- Use ONLY commands from the ALLOWED COMMAND CATALOG. Do NOT invent commands not in the catalog.
+  Common illegal commands that do NOT exist: ParallelLine, Circumcenter, PerpendicularSegment, MidSegment.
+  Correct alternatives: parallel line through P to line l → Line(P, l);
+  circumcenter of circle c → Midpoint(c); perpendicular through P to line l → PerpendicularLine(P, l).
 - Define a free point with direct coordinate syntax: A = (-1, 6). Do NOT wrap in Point(): never A = Point((-1, 6)) and never A = Point({-1, 6}).
 - Each line is one valid command runnable in the GeoGebra input bar.
 - Name every object (A, B, C, a, h, H...) so it can be referenced afterwards.
@@ -51,7 +57,9 @@ CLEAN FIGURE RULES (very important):
 CIRCLE RULES (very important):
 - For a circumscribed circle (đường tròn ngoại tiếp) or an inscribed circle (đường tròn nội tiếp), ALWAYS draw the
   WHOLE circle, never just an arc. Do NOT use Arc / CircularArc / Sector for these.
-- Circumscribed circle of triangle ABC: c = Circle(A, B, C). Or get its center O = Circumcenter(A, B, C) then c = Circle(O, A).
+- Circumscribed circle of triangle ABC: c = Circle(A, B, C). To get the circumcenter: O = Midpoint(c)
+  (Midpoint(<Conic>) returns the center — do NOT use Circumcenter(), it is not a valid GeoGebra command).
+- For a cyclic polygon ABCD…: draw c = Circle(A, B, C) then O = Midpoint(c).
 - Inscribed circle of triangle ABC: I = Incenter(A, B, C) for the center, then draw the full circle with
   c = Circle(I, Distance(I, Line(B, C))) — radius = distance from incenter to a side. Hide any helper line used.
 - When a ray starts from a point INSIDE the circle (e.g. a point on a chord such as a foot of altitude,
@@ -61,6 +69,23 @@ CIRCLE RULES (very important):
   Example — "ray DG hits (ABC) at Q" (D = foot of altitude on BC, inside circle): Q = Intersect(omega, Ray(D, G)).
 - Do NOT convert the ray to a Line and use an initial point or a numeric index — both are unreliable because
   the "closer" intersection on the full line can be on the WRONG side of the start point.
+- When a line passes through a known point A that is ALREADY ON the circle, all of these are WRONG:
+    Intersect(circle, line)       — returns 2 points, ambiguous index
+    Intersect(circle, line, A)    — returns A itself (closest = distance 0), not the other point
+    Intersect(circle, ray_from_A) — still returns 2 points (A + D)
+  Correct approach: ClosestPoint gives the midpoint of the chord; Reflect A across it gives D.
+    O = Midpoint(omega)           # center (already computed earlier)
+    M = ClosestPoint(lAD, O)      # foot of perp from O to chord = midpoint of chord
+    SetVisibleInView(M, 1, false)
+    D = Reflect(A, M)             # reflect A across midpoint → other endpoint D
+  Example — "line through A (on circle) parallel to BC, intersects circle again at D":
+    lBC = Line(B, C)
+    SetVisibleInView(lBC, 1, false)
+    lAD = Line(A, lBC)
+    SetVisibleInView(lAD, 1, false)
+    M_AD = ClosestPoint(lAD, O)
+    SetVisibleInView(M_AD, 1, false)
+    D = Reflect(A, M_AD)
 
 EXAMPLE — "draw triangle ABC and the altitude from A" (plain triangle → use the default coordinates):
 A = (-1, 6)

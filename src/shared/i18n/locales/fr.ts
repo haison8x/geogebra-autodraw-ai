@@ -27,6 +27,7 @@ export const fr: Messages = {
   helpTip1: 'Les lignes auxiliaires et les étiquettes sont masquées automatiquement pour une figure propre.',
   helpTip2: 'Les noms de commandes doivent être en anglais.',
   helpTip3: "L'extension ne fonctionne que sur un onglet geogebra.org/calculator.",
+  helpTip4: "L'IA choisit sa propre méthode de construction et se trompe parfois. Plutôt que de coller l'énoncé tel quel, décrivez ce qu'il faut construire et dans quel ordre — l'IA sera plus précise.",
   helpOpenCalculator: 'Ouvrir GeoGebra Calculator',
   needCalcTab: 'Ouvrez un onglet GeoGebra Calculator pour commencer à dessiner.',
   drawMode: 'Mode de dessin',

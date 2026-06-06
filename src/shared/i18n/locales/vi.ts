@@ -27,6 +27,7 @@ export const vi: Messages = {
   helpTip1: 'Đường phụ và nhãn được tự ẩn để hình gọn.',
   helpTip2: 'Tên lệnh phải bằng tiếng Anh.',
   helpTip3: 'Extension chỉ chạy trên tab geogebra.org/calculator.',
+  helpTip4: 'AI tự chọn phương pháp dựng hình và đôi khi chọn sai. Thay vì nhập nguyên đề bài, hãy diễn giải rõ cần dựng gì và theo thứ tự nào để AI cho kết quả chính xác hơn.',
   helpOpenCalculator: 'Mở GeoGebra Calculator',
   needCalcTab: 'Mở tab GeoGebra Calculator để bắt đầu vẽ.',
   drawMode: 'Chế độ vẽ',

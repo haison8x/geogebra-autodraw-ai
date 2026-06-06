@@ -27,6 +27,7 @@ export const de: Messages = {
   helpTip1: 'Hilfslinien und Beschriftungen werden für eine saubere Figur automatisch ausgeblendet.',
   helpTip2: 'Befehlsnamen müssen auf Englisch sein.',
   helpTip3: 'Die Erweiterung funktioniert nur auf einem geogebra.org/calculator-Tab.',
+  helpTip4: 'Die KI wählt die Konstruktionsmethode selbst und liegt manchmal falsch. Statt die Aufgabe wörtlich einzufügen, beschreibe, was in welcher Reihenfolge konstruiert werden soll — das Ergebnis wird genauer.',
   helpOpenCalculator: 'GeoGebra Calculator öffnen',
   needCalcTab: 'Öffne einen GeoGebra-Calculator-Tab, um mit dem Zeichnen zu beginnen.',
   drawMode: 'Zeichenmodus',

@@ -26,6 +26,7 @@ export const en = {
   helpTip1: 'Helper lines and labels are auto-hidden for a clean figure.',
   helpTip2: 'Command names must be in English.',
   helpTip3: 'The extension only works on a geogebra.org/calculator tab.',
+  helpTip4: "AI picks its own construction method and sometimes gets it wrong. Instead of pasting the raw problem, describe what to construct and in what order — the AI will be more accurate.",
   helpOpenCalculator: 'Open GeoGebra Calculator',
   needCalcTab: 'Open a GeoGebra Calculator tab to start drawing.',
   drawMode: 'Draw mode',

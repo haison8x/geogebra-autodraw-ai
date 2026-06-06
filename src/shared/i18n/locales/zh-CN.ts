@@ -27,6 +27,7 @@ export const zhCN: Messages = {
   helpTip1: '辅助线和标签会自动隐藏，使图形整洁。',
   helpTip2: '命令名称必须为英文。',
   helpTip3: '扩展仅在 geogebra.org/calculator 标签页中可用。',
+  helpTip4: 'AI 会自行选择作图方法，有时会选错。不要原样粘贴题目，而应明确描述需要作哪些图、按什么顺序，这样 AI 的结果会更准确。',
   helpOpenCalculator: '打开 GeoGebra Calculator',
   needCalcTab: '打开 GeoGebra Calculator 标签页以开始绘制。',
   drawMode: '绘制模式',

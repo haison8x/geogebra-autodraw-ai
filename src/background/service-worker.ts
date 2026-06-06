@@ -120,12 +120,14 @@ async function handleExecute(commands: string[], clearFirst: boolean): Promise<v
     for (let i = 0; i < commands.length; i++) {
       const cmd = commands[i];
       const ok = await execMain(tabId, pageRunCommand, [cmd]);
+      sendRuntime({ action: 'PROGRESS', payload: { index: i, total: commands.length, command: cmd } });
       if (!ok) {
         const item: ErrorItem = { index: i, command: cmd, message: 'evalCommand returned false' };
         errors.push(item);
-        sendRuntime({ action: 'COMMAND_ERROR', payload: item }); // do not stop the batch
+        sendRuntime({ action: 'COMMAND_ERROR', payload: item });
+        sendRuntime({ action: 'DONE', payload: { ok: false, executed: i, errors } });
+        return;
       }
-      sendRuntime({ action: 'PROGRESS', payload: { index: i, total: commands.length, command: cmd } });
       await delay(DEFAULT_DELAY_MS);
     }
 
