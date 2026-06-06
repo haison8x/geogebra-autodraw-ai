@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "GeoGebra AutoDraw AI"
+  },
+  "appDesc": {
+    "message": "Auto-draw plane geometry on GeoGebra: build an AI prompt, paste the commands back, and draw in one click."
+  }
+}

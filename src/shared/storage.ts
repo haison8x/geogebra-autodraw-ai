@@ -5,10 +5,18 @@ import { detectLocale, type Locale } from './i18n';
 
 export type HistoryItem = { id: string; problem: string; commands: string[] };
 
-export type Settings = { delayMs: number; clearFirstDefault: boolean; locale: Locale };
+export type PromptMode = 'flash' | 'advanced';
+
+export type Settings = {
+  delayMs: number;
+  clearFirstDefault: boolean;
+  locale: Locale;
+  promptMode: PromptMode;
+};
 
 export type StorageSchema = {
   lastProblem: string;
+  lastInterpretation: string;
   lastCommandsRaw: string;
   settings: Settings;
   history: HistoryItem[];
@@ -18,8 +26,9 @@ export const HISTORY_LIMIT = 20;
 
 export const DEFAULTS: StorageSchema = {
   lastProblem: '',
+  lastInterpretation: '',
   lastCommandsRaw: '',
-  settings: { delayMs: DEFAULT_DELAY_MS, clearFirstDefault: true, locale: detectLocale() },
+  settings: { delayMs: DEFAULT_DELAY_MS, clearFirstDefault: true, locale: detectLocale(), promptMode: 'flash' },
   history: [],
 };
 

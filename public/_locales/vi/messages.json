@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "GeoGebra AutoDraw AI"
+  },
+  "appDesc": {
+    "message": "Vẽ hình học phẳng tự động trên GeoGebra: sinh prompt cho AI, dán lệnh, vẽ 1 chạm."
+  }
+}

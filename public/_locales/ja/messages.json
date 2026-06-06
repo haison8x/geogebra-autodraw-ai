@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "GeoGebra AutoDraw AI"
+  },
+  "appDesc": {
+    "message": "GeoGebra で平面図形を自動描画：AI プロンプトを生成し、コマンドを貼り付けて一発で描く。"
+  }
+}

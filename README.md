@@ -8,13 +8,15 @@
 ## 1. Overview
 
 ### 1.1. Goal
-GeoGebra AutoDraw AI is a Chrome Extension (Manifest V3) that helps teachers/students automatically draw plane geometry figures on GeoGebra. The extension acts as a **bridge between an external AI (Gemini/ChatGPT/Claude) and GeoGebra Calculator**:
+GeoGebra AutoDraw AI is a Chrome Extension (Manifest V3) that helps teachers/students automatically draw plane geometry figures on GeoGebra. The extension acts as a **bridge between an external AI (Gemini/ChatGPT/Claude) and GeoGebra Calculator** using a **two-step prompting** workflow (§18):
 
 1. The user enters a plane geometry problem.
-2. The extension generates a **complete prompt** (problem statement + catalog of valid GeoGebra commands) for the user to copy into the AI.
-3. The AI returns a list of **GeoGebra commands**.
-4. The user pastes the command list into the extension and clicks "Execute".
-5. The extension opens the tab `https://www.geogebra.org/calculator` and automatically runs each command via the GeoGebra Apps API (`ggbApplet.evalCommand`) → the figure is drawn automatically.
+2. The extension generates **Prompt 1** (problem → drawing interpretation request). The user copies it into the AI.
+3. The AI returns a **drawing plan** — a natural-language description of which objects to construct and in what order (no GeoGebra commands yet).
+4. The user pastes the drawing plan into the extension. The extension generates **Prompt 2** (drawing plan + catalog of valid GeoGebra commands). The user copies it into the AI.
+5. The AI returns a list of **GeoGebra commands**.
+6. The user pastes the command list into the extension and clicks "Execute".
+7. The extension opens the tab `https://www.geogebra.org/calculator` and automatically runs each command via the GeoGebra Apps API (`ggbApplet.evalCommand`) → the figure is drawn automatically.
 
 ### 1.2. Scope
 **In-scope:**
@@ -65,8 +67,10 @@ The extension consists of 3 components that communicate via Message Passing:
 ### 3.1. UI (Side Panel) — `src/popup/`
 > Rendered in Chrome's **side panel** (not a popup) so it stays open while the user interacts with the GeoGebra tab. Clicking the toolbar icon toggles the panel (`chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true })`). The `src/popup/` folder name is kept for the React UI.
 - Form to enter the **Problem**.
-- **"Generate Prompt"** button → combines the template + `geometry_commands.json` → displays the prompt + a Copy button.
-- Textarea to paste the **command list** returned by the AI. After pasting → auto-sanitize (§10.1); the result is displayed in an **editable** textarea so the user can edit/preview before drawing.
+- **Prompt mode toggle**: **Flash** (default) | **Advanced** (§18). Persisted in `settings.promptMode`.
+  - **Flash**: one **"Generate Prompt"** button → `buildPrompt(problem, catalog)` → copies to clipboard.
+  - **Advanced**: **"Generate Prompt 1"** button → `buildPrompt1(problem)` → copies to clipboard (drawing plan request). Textarea for the AI's drawing plan (editable, persisted as `lastInterpretation`). **"Generate Prompt 2"** button → `buildPrompt2(interpretation, catalog)` → copies to clipboard (disabled when drawing plan is empty).
+- Textarea to paste the **GeoGebra command list** returned by the AI. After pasting → auto-sanitize (§10.1); result displayed in an **editable** textarea so the user can edit/preview before drawing.
 - Drawing mode choice (radio/toggle): **Clear and redraw** (default) | **Draw on top** → determines `clearFirst`.
 - **"Execute (Draw)"** button → sends `EXECUTE_COMMANDS { commands, clearFirst }` to Background.
 - Area displaying the **execution status** (running line x/n, errors, completed).
@@ -164,6 +168,8 @@ export type Message =
 
 ## 6. Prompt Generation
 
+> **Updated (Epic 8 / §18):** the extension now uses a **two-step prompting** workflow. Prompt 1 asks the AI for a natural-language drawing plan; Prompt 2 uses that plan + the command catalog to generate GeoGebra commands. See §18 for templates and rationale.
+
 ### 6.1. Command data source
 - The file `geometry_commands.json` (already present in the root directory) is copied to `public/geometry_commands.json` or imported as an asset.
 - Structure: `[{ name, url, description, syntax[] }]`.
@@ -171,50 +177,14 @@ export type Message =
 ### 6.2. Optimizing prompt size
 The full catalog is ~30KB → too long for a prompt. **Requirement:** generate a condensed version containing only `name` + 1 main `syntax` line + a short `description`, filtering for **2D plane geometry** commands (excluding unrelated 3D/statistics commands). Save it as `geometry_commands.min.json` at build time.
 
-### 6.3. Prompt template
-The template is stored in `src/shared/promptTemplate.ts`:
+### 6.3. Prompt templates
+The templates are stored in `src/shared/promptTemplate.ts`. See §18 for full template content.
 
-```
-You are a GeoGebra expert. Draw the figure for the following plane-geometry
-problem using a list of GeoGebra commands (one command per line, NO explanations,
-NO numbering, NO markdown).
+See §18 for the full Prompt 1 and Prompt 2 templates.
 
-PROBLEM:
-{{PROBLEM}}
+`{{PROBLEM}}` = the problem the user entered. `{{INTERPRETATION}}` = the drawing plan from step 1. `{{COMMANDS_CATALOG}}` = the condensed content from §6.2.
 
-CONSTRAINTS:
-- Use the geometry commands from the allowed catalog below. In addition you MAY use these
-  visibility commands to keep the figure clean: ShowLabel( <Object>, <true|false> ) and
-  SetVisibleInView( <Object>, 1, <true|false> ).
-- Command names MUST be in English (English command names), e.g. Polygon, Segment, Midpoint.
-- Each line is one valid command runnable in the GeoGebra input bar.
-- Name every object (A, B, C, a, h, H...) so it can be referenced afterwards.
-- Return ONLY the command list, with no other text.
-
-GENERAL POSITION RULES (very important):
-- Draw the figure in GENERAL position; do NOT add any property the problem did not state.
-- A plain "triangle ABC" MUST be scalene (no equal sides, no right angle, no symmetry); only make it
-  isosceles/equilateral/right-angled when the problem explicitly says so.
-- DEFAULT for a plain "triangle ABC": use A(0,5), B(-3,0), C(7,0). Other plain polygons → irregular,
-  generic integer coordinates within roughly -10..10.
-
-CLEAN FIGURE RULES (very important):
-- Draw sides/edges with Segment, NOT with the infinite Line — unless the problem explicitly asks for a line or ray.
-- Any helper object used only to locate a point (infinite lines, perpendiculars, parallels, bisectors,
-  helper circles for intersection) MUST be hidden right after use: add SetVisibleInView( <name>, 1, false ).
-- Hide the labels of every segment and line: add ShowLabel( <name>, false ). Keep labels ONLY on points.
-- The final visible figure must show only the required points and segments — no construction clutter, no stray labels.
-
-EXAMPLE — "draw triangle ABC and the altitude from A" (plain triangle → default coords):
-... (A(0,5) B(-3,0) C(7,0), Segment for sides, ShowLabel(seg,false), SetVisibleInView(helperLine,1,false), Segment AH)
-
-ALLOWED COMMAND CATALOG:
-{{COMMANDS_CATALOG}}
-```
-
-`{{PROBLEM}}` = the problem the user entered. `{{COMMANDS_CATALOG}}` = the condensed content from §6.2.
-
-> **Clean-figure rationale:** GeoGebra shows infinite `Line` objects and auto-labels (a, b, c…) by default, which clutter the figure and visually hide the intended segments. The prompt therefore tells the AI to prefer `Segment`, hide construction helpers via `SetVisibleInView(obj, 1, false)`, and hide segment/line labels via `ShowLabel(obj, false)` — these two visibility commands are allowed in addition to the catalog.
+> **Clean-figure rationale:** GeoGebra shows infinite `Line` objects and auto-labels (a, b, c…) by default, which clutter the figure and visually hide the intended segments. The prompts tell the AI to prefer `Segment`, hide construction helpers via `SetVisibleInView(obj, 1, false)`, and hide segment/line labels via `ShowLabel(obj, false)` — these two visibility commands are allowed in addition to the catalog.
 
 ---
 
@@ -291,6 +261,7 @@ Available methods: `evalCommand`, `reset`, `newConstruction`, `deleteObject`, `g
 ```typescript
 type StorageSchema = {
   lastProblem: string;          // most recent problem
+  lastInterpretation: string;   // most recent drawing plan (step 1 AI output) — added Epic 8
   lastCommandsRaw: string;      // most recent command textarea
   settings: {
     delayMs: number;            // default 600
@@ -392,6 +363,7 @@ geogebra/
 | P5 🚧 | UI polish + packaging — DONE; QA E2E on real Chrome — pending (manual) |
 | P6 ✅ | Internationalization (i18n) — 9-language Popup UI (§16) — DONE |
 | P7 ✅ | In-app usage guide + Help button, localized (§17) — DONE |
+| P8 🔲 | Two-step prompting: Prompt 1 (drawing plan) → Prompt 2 (GeoGebra commands) (§18) |
 
 ---
 
@@ -467,3 +439,131 @@ A **Help button** in the Popup opens an in-app usage guide so new users understa
 - [x] Switching language updates the guide content immediately (all 9 locales).
 - [x] The panel can be closed and does not block the main UI.
 - [x] No hardcoded guide strings; parity test passes for the new keys.
+
+---
+
+## 18. Prompt Mode: Flash & Advanced
+
+> **Status:** Planned (Epic 8 / P8).
+
+The user can choose between two prompt modes via a toggle in the Popup. The choice is persisted in `settings.promptMode`.
+
+| Mode | Steps | Best for |
+|---|---|---|
+| **Flash** (default) | 1 — problem → GeoGebra commands directly | Simple figures, quick iteration |
+| **Advanced** | 2 — problem → drawing plan → GeoGebra commands | Complex figures, better accuracy |
+
+**Flash** keeps the existing single-prompt flow unchanged. **Advanced** uses a plan-then-execute approach: the AI first reasons about geometry in plain language (Prompt 1), then translates that plan into GeoGebra syntax (Prompt 2). This separates geometric reasoning from syntax generation and reduces errors.
+
+### 18.1. Flash Mode UI
+
+```
+[1] Textarea: Problem
+[2] Toggle: Flash ● / Advanced ○
+[3] Button "Generate Prompt"  →  copies to clipboard  (buildPrompt — unchanged)
+         ↓ (user pastes into external AI, gets GeoGebra commands)
+[4] Textarea: GeoGebra Commands  (editable, sanitize on paste §10.1)
+[5] Draw mode toggle
+[6] Execute  +  Clear Canvas
+[7] Status
+```
+
+### 18.2. Advanced Mode UI
+
+```
+[1] Textarea: Problem
+[2] Toggle: Flash ○ / Advanced ●
+[3] Button "Generate Prompt 1 (Drawing Plan)"  →  copies to clipboard  (buildPrompt1)
+         ↓ (user pastes into external AI, gets drawing plan)
+[4] Textarea: Drawing Plan  (editable, paste from AI)
+[5] Button "Generate Prompt 2 (GeoGebra Commands)"  →  copies to clipboard  (buildPrompt2)
+         Disabled when drawing plan textarea is empty.
+         ↓ (user pastes into external AI, gets GeoGebra commands)
+[6] Textarea: GeoGebra Commands  (editable, sanitize on paste §10.1)
+[7] Draw mode toggle
+[8] Execute  +  Clear Canvas
+[9] Status
+```
+
+### 18.3. Prompt 1 — Drawing Plan (Advanced only)
+
+```
+You are a plane-geometry construction expert. Given the problem below, produce a
+step-by-step CONSTRUCTION PLAN that describes exactly which geometric objects to build
+and in which order. Do NOT write any GeoGebra commands — describe each step in plain
+English (or the language of the problem).
+
+PROBLEM:
+{{PROBLEM}}
+
+OUTPUT FORMAT (one step per line, no numbering, no markdown):
+- List each free point with its suggested coordinates (follow GENERAL POSITION RULES below).
+- List each dependent object: its type, name, and how it is defined
+  (e.g. "segment AB between A and B").
+- Mark any helper object that should be hidden after use with "(hide)".
+- Mark any segment/line whose label should be hidden with "(hide label)".
+- Return ONLY the construction plan — no explanations, no GeoGebra syntax, no solution reasoning.
+
+GENERAL POSITION RULES:
+- Draw in GENERAL position. Do NOT add any property the problem did not state.
+- A plain "triangle ABC" MUST be scalene. Default coordinates: A(-1, 6), B(-3, 0), C(7, 0).
+- Other plain polygons: irregular integer coordinates within roughly -10..10.
+- ONLY include objects the problem explicitly asks to draw.
+```
+
+### 18.4. Prompt 2 — GeoGebra Commands (Advanced only)
+
+Prompt 2 uses the full rule set of the current `PROMPT_TEMPLATE` (`src/shared/promptTemplate.ts`) with one change: the `PROBLEM` block is replaced by a `CONSTRUCTION PLAN` block (the drawing plan returned by the AI in step 1) and the preamble is adjusted to "translate the construction plan":
+
+```
+You are a GeoGebra expert. Translate the construction plan below into a list of
+GeoGebra commands (one command per line, NO explanations, NO numbering, NO markdown).
+
+CONSTRUCTION PLAN:
+{{INTERPRETATION}}
+
+CONSTRAINTS: [identical to current PROMPT_TEMPLATE]
+LITERAL CONSTRUCTION RULES: [identical]
+GENERAL POSITION RULES: [identical]
+CLEAN FIGURE RULES: [identical]
+CIRCLE RULES: [identical]
+ALLOWED COMMAND CATALOG:
+{{COMMANDS_CATALOG}}
+```
+
+### 18.5. Functions
+
+```typescript
+// src/shared/promptTemplate.ts
+export function buildPrompt(problem: string, commandsCatalog: string): string       // Flash (existing)
+export function buildPrompt1(problem: string): string                                // Advanced step 1
+export function buildPrompt2(interpretation: string, commandsCatalog: string): string // Advanced step 2
+```
+
+### 18.6. Storage
+
+```typescript
+settings: {
+  promptMode: 'flash' | 'advanced';  // default 'flash' — added Epic 8
+  // …existing fields
+};
+lastInterpretation: string;  // Advanced mode drawing plan — added Epic 8
+```
+
+### 18.7. Help Panel
+
+The Help panel (§17) shows two sections — one for each mode — so users understand both flows:
+
+- **Flash** (7 steps): enter problem → select Flash → Generate Prompt → copy → paste into AI → paste commands → Execute.
+- **Advanced** (9 steps): enter problem → select Advanced → Generate Prompt 1 → copy → paste into AI → paste drawing plan → Generate Prompt 2 → copy → paste into AI → paste commands → Execute.
+- One-line comparison: *Flash: fast, 1 AI call. Advanced: 2 AI calls, more accurate for complex figures.*
+
+### 18.8. Acceptance criteria
+- [ ] Flash/Advanced toggle visible in Popup; selection persisted and restored on reopen.
+- [ ] Flash mode: existing flow unchanged.
+- [ ] Advanced mode: Prompt 1 copies from problem; drawing plan textarea editable; Prompt 2 copies from plan + catalog; Prompt 2 disabled when plan is empty.
+- [ ] `lastInterpretation` restored on Popup reopen in Advanced mode.
+- [ ] Help panel shows both Flash and Advanced step-by-step guides with comparison note.
+- [ ] All new UI strings localized (9 locales, parity test passes).
+- [ ] Manual E2E Flash: problem → Prompt → AI → commands → Execute → figure correct.
+- [ ] Manual E2E Advanced: problem → Prompt 1 → AI → plan → Prompt 2 → AI → commands → Execute → figure correct.

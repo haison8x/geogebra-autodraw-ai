@@ -12,5 +12,5 @@ export type Message =
 
 export type MessageAction = Message['action'];
 
-export const DEFAULT_DELAY_MS = 50;
+export const DEFAULT_DELAY_MS = 100;
 export const GEOGEBRA_URL = 'https://www.geogebra.org/calculator';

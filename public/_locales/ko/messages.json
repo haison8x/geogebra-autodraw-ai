@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "GeoGebra AutoDraw AI"
+  },
+  "appDesc": {
+    "message": "GeoGebra에서 평면 기하학 자동 그리기: AI 프롬프트 생성 → 명령 붙여넣기 → 한 번에 그리기."
+  }
+}

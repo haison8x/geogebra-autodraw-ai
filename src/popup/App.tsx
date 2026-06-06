@@ -1,7 +1,7 @@
-// Popup UI — spec §3.1, §6, §10.1, §12, §16. Enter problem → generate prompt → copy → paste
-// commands → sanitize → editable preview → pick draw mode → Execute → track progress.
+// Popup UI — spec §3.1, §6, §10.1, §12, §16, §18. Two prompt modes: Flash (1-step) and Advanced (2-step).
 // Fully localized (Epic 6) via t(locale, key).
 import { SUPPORTED_LOCALES, LOCALE_NATIVE_NAMES, type Locale } from '@/shared/i18n';
+import type { PromptMode } from '@/shared/storage';
 import { useAppState } from './hooks/useAppState';
 import { StatusPanel } from './components/StatusPanel';
 import { HelpPanel } from './components/HelpPanel';
@@ -11,13 +11,18 @@ export default function App() {
   const {
     problem,
     setProblem,
+    interpretation,
+    setInterpretation,
     commandsRaw,
     setCommandsRaw,
     clearFirst,
     locale,
+    promptMode,
     catalog,
     catalogErr,
     copied,
+    copied1,
+    copied2,
     showHelp,
     setShowHelp,
     phase,
@@ -29,10 +34,13 @@ export default function App() {
     commandCount,
     canExecute,
     handleCopyPrompt,
+    handleCopyPrompt1,
+    handleCopyPrompt2,
     handlePasteCommands,
     handleClearCommands,
     setMode,
     changeLocale,
+    changePromptMode,
     handleExecute,
     handleClearCanvas,
     loadHistory,
@@ -71,7 +79,7 @@ export default function App() {
         </div>
       </div>
 
-      {showHelp && <HelpPanel tr={tr} onClose={() => setShowHelp(false)} />}
+      {showHelp && <HelpPanel tr={tr} promptMode={promptMode} onClose={() => setShowHelp(false)} />}
 
       {/* Gating banner — extension only works on a Calculator tab */}
       {!onCalc && (
@@ -99,16 +107,77 @@ export default function App() {
         />
       </label>
 
-      <button
-        className="w-full rounded bg-emerald-600 px-3 py-2 font-medium text-white disabled:opacity-50"
-        disabled={!problem.trim() || !catalog}
-        onClick={handleCopyPrompt}
-      >
-        {copied ? tr('copied') : tr('copyPrompt')}
-      </button>
-      {catalogErr && <p className="text-xs text-red-600">{tr('catalogError', { error: catalogErr })}</p>}
+      {/* 2. Prompt mode toggle */}
+      <fieldset className="flex items-center gap-3">
+        <legend className="text-xs font-medium text-slate-600">{tr('promptModeLabel')}:</legend>
+        <label className="flex items-center gap-1 text-xs">
+          <input
+            type="radio"
+            name="promptMode"
+            checked={promptMode === 'flash'}
+            onChange={() => changePromptMode('flash' as PromptMode)}
+          />
+          {tr('promptModeFlash')}
+        </label>
+        <label className="flex items-center gap-1 text-xs">
+          <input
+            type="radio"
+            name="promptMode"
+            checked={promptMode === 'advanced'}
+            onChange={() => changePromptMode('advanced' as PromptMode)}
+          />
+          {tr('promptModeAdvanced')}
+        </label>
+      </fieldset>
 
-      {/* 3. AI commands (paste → sanitize → editable) */}
+      {/* 3a. Flash mode: single Generate Prompt button */}
+      {promptMode === 'flash' && (
+        <>
+          <button
+            className="w-full rounded bg-emerald-600 px-3 py-2 font-medium text-white disabled:opacity-50"
+            disabled={!problem.trim() || !catalog}
+            onClick={handleCopyPrompt}
+          >
+            {copied ? tr('copied') : tr('copyPrompt')}
+          </button>
+          {catalogErr && <p className="text-xs text-red-600">{tr('catalogError', { error: catalogErr })}</p>}
+        </>
+      )}
+
+      {/* 3b. Advanced mode: Prompt 1 → interpretation textarea → Prompt 2 */}
+      {promptMode === 'advanced' && (
+        <>
+          <button
+            className="w-full rounded bg-emerald-600 px-3 py-2 font-medium text-white disabled:opacity-50"
+            disabled={!problem.trim()}
+            onClick={handleCopyPrompt1}
+          >
+            {copied1 ? tr('copied') : tr('copyPrompt1')}
+          </button>
+
+          <label className="block">
+            <span className="font-medium">{tr('interpretationLabel')}</span>
+            <textarea
+              className="mt-1 w-full rounded border p-2 text-xs"
+              rows={5}
+              placeholder={tr('interpretationPlaceholder')}
+              value={interpretation}
+              onChange={(e) => setInterpretation(e.target.value)}
+            />
+          </label>
+
+          <button
+            className="w-full rounded bg-teal-600 px-3 py-2 font-medium text-white disabled:opacity-50"
+            disabled={!interpretation.trim() || !catalog}
+            onClick={handleCopyPrompt2}
+          >
+            {copied2 ? tr('copied') : tr('copyPrompt2')}
+          </button>
+          {catalogErr && <p className="text-xs text-red-600">{tr('catalogError', { error: catalogErr })}</p>}
+        </>
+      )}
+
+      {/* 4. GeoGebra commands (paste → sanitize → editable) */}
       <label className="block">
         <span className="font-medium">{tr('commandsLabel')}</span>
         <textarea
@@ -133,7 +202,7 @@ export default function App() {
         </button>
       </div>
 
-      {/* 4. Draw mode */}
+      {/* 5. Draw mode */}
       <fieldset className="space-y-1">
         <legend className="font-medium">{tr('drawMode')}</legend>
         <label className="flex items-center gap-2">
@@ -146,7 +215,7 @@ export default function App() {
         </label>
       </fieldset>
 
-      {/* 5. Actions */}
+      {/* 6. Actions */}
       <div className="flex gap-2">
         <button
           className="flex-1 rounded bg-blue-600 px-3 py-2 font-medium text-white disabled:opacity-50"
@@ -164,10 +233,10 @@ export default function App() {
         </button>
       </div>
 
-      {/* 6. Status */}
+      {/* 7. Status */}
       <StatusPanel phase={phase} progress={progress} errors={errors} tr={tr} />
 
-      {/* 7. History */}
+      {/* 8. History */}
       {history.length > 0 && (
         <details className="text-xs">
           <summary className="cursor-pointer font-medium">{tr('historyTitle', { count: history.length })}</summary>

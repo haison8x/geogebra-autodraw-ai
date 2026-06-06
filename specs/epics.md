@@ -137,6 +137,23 @@
 
 ---
 
+## Epic 8 — Sinh Prompt 2 Bước: Diễn Giải → Lệnh GeoGebra (P8)
+
+**Mục tiêu:** Thay thế quy trình sinh prompt 1 bước bằng quy trình 2 bước: Prompt 1 (đề toán → kế hoạch vẽ hình bằng ngôn ngữ tự nhiên) → Prompt 2 (kế hoạch + catalog → lệnh GeoGebra). Xem §18 README.
+
+**Stories:**
+- [ ] Tạo `buildPrompt1(problem)` — Prompt 1 yêu cầu AI mô tả kế hoạch xây dựng hình, không có lệnh GeoGebra (§18.1).
+- [ ] Tạo `buildPrompt2(interpretation, catalog)` — Prompt 2 dịch kế hoạch sang lệnh GeoGebra (§18.2).
+- [ ] Thêm state `interpretation` + persist `lastInterpretation` vào storage (§9).
+- [ ] Cập nhật Popup UI: nút "Sinh Prompt 1", textarea Diễn giải, nút "Sinh Prompt 2" (§3.1).
+- [ ] Cập nhật i18n 9 locale + parity test cho key mới.
+- [ ] Cập nhật `HelpPanel` cho luồng 9 bước mới (§17.2).
+- [ ] Unit tests: `buildPrompt1`, `buildPrompt2`, parity locale.
+
+**DoD:** §18.4 — Prompt 1/2 copy 1 chạm; Prompt 2 disable khi diễn giải rỗng; `lastInterpretation` khôi phục; parity test pass; manual E2E hình vẽ đúng.
+
+---
+
 ## Truy Vết Epic → Phase → Spec
 
 | Epic | Phase | Sections README | Trạng thái | Chi tiết |
@@ -149,3 +166,4 @@
 | 5 | P5 | §4.1, §12, §15 | 🚧 Polish+pack DONE; QA E2E manual pending | [epic-5.md](epic-5.md) · [e2e-checklist.md](e2e-checklist.md) |
 | 6 | P6 | §16 | ✅ DONE (localize wording prompt = tùy chọn, chưa làm) | [epic-6.md](epic-6.md) |
 | 7 | P7 | §17 | ✅ DONE (render test panel = tùy chọn, chưa làm) | [epic-7.md](epic-7.md) |
+| 8 | P8 | §3.1, §6, §9, §17, §18 | 🔲 TODO | [epic-8.md](epic-8.md) |

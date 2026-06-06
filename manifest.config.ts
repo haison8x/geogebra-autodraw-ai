@@ -3,9 +3,10 @@ import pkg from './package.json';
 
 export default defineManifest({
   manifest_version: 3,
-  name: 'GeoGebra AutoDraw AI',
+  name: '__MSG_appName__',
+  default_locale: 'en',
   version: pkg.version,
-  description: pkg.description,
+  description: '__MSG_appDesc__',
   icons: {
     16: 'icons/icon16.png',
     32: 'icons/icon32.png',

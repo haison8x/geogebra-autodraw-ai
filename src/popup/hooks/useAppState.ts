@@ -2,13 +2,14 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ErrorItem, Message } from '@/shared/messages';
 import { DEFAULT_DELAY_MS } from '@/shared/messages';
 import { sanitizeCommands } from '@/shared/sanitize';
-import { buildPrompt } from '@/shared/promptTemplate';
+import { buildPrompt, buildPrompt1, buildPrompt2 } from '@/shared/promptTemplate';
 import { loadMinCommands, formatCatalog } from '@/shared/catalog';
 import {
   getState,
   patchState,
   pushHistory,
   type HistoryItem,
+  type PromptMode,
   type Settings,
 } from '@/shared/storage';
 import { t, type Locale } from '@/shared/i18n';
@@ -31,12 +32,16 @@ function getErrorLineRange(raw: string, commandIndex: number): { start: number; 
 
 export function useAppState() {
   const [problem, setProblem] = useState('');
+  const [interpretation, setInterpretation] = useState('');
   const [commandsRaw, setCommandsRaw] = useState('');
   const [clearFirst, setClearFirst] = useState(true);
   const [locale, setLocale] = useState<Locale>('en');
+  const [promptMode, setPromptMode] = useState<PromptMode>('flash');
   const [catalog, setCatalog] = useState('');
   const [catalogErr, setCatalogErr] = useState('');
   const [copied, setCopied] = useState(false);
+  const [copied1, setCopied1] = useState(false);
+  const [copied2, setCopied2] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
 
   const [phase, setPhase] = useState<Phase>('idle');
@@ -62,9 +67,11 @@ export function useAppState() {
 
     getState().then((s) => {
       setProblem(s.lastProblem);
+      setInterpretation(s.lastInterpretation);
       setCommandsRaw(s.lastCommandsRaw);
       setClearFirst(s.settings.clearFirstDefault);
       setLocale(s.settings.locale);
+      setPromptMode(s.settings.promptMode);
       setHistory(s.history);
       restored.current = true;
     });
@@ -128,6 +135,13 @@ export function useAppState() {
     return () => clearTimeout(t2);
   }, [problem]);
 
+  // Persist last interpretation (lightly debounced).
+  useEffect(() => {
+    if (!restored.current) return;
+    const t2 = setTimeout(() => void patchState({ lastInterpretation: interpretation }), 400);
+    return () => clearTimeout(t2);
+  }, [interpretation]);
+
   useEffect(() => {
     if (!restored.current) return;
     const t2 = setTimeout(() => void patchState({ lastCommandsRaw: commandsRaw }), 400);
@@ -144,13 +158,15 @@ export function useAppState() {
         delayMs: DEFAULT_DELAY_MS,
         clearFirstDefault: clearFirst,
         locale,
+        promptMode,
         ...next,
       };
       void patchState({ settings });
     },
-    [clearFirst, locale],
+    [clearFirst, locale, promptMode],
   );
 
+  // Flash mode: copy single prompt.
   const handleCopyPrompt = useCallback(async () => {
     if (!problem.trim() || !catalog) return;
     try {
@@ -161,6 +177,30 @@ export function useAppState() {
       console.error('clipboard failed', e);
     }
   }, [problem, catalog]);
+
+  // Advanced mode: copy Prompt 1 (drawing plan request).
+  const handleCopyPrompt1 = useCallback(async () => {
+    if (!problem.trim()) return;
+    try {
+      await navigator.clipboard.writeText(buildPrompt1(problem));
+      setCopied1(true);
+      setTimeout(() => setCopied1(false), 1500);
+    } catch (e) {
+      console.error('clipboard failed', e);
+    }
+  }, [problem]);
+
+  // Advanced mode: copy Prompt 2 (GeoGebra commands request).
+  const handleCopyPrompt2 = useCallback(async () => {
+    if (!interpretation.trim() || !catalog) return;
+    try {
+      await navigator.clipboard.writeText(buildPrompt2(interpretation, catalog));
+      setCopied2(true);
+      setTimeout(() => setCopied2(false), 1500);
+    } catch (e) {
+      console.error('clipboard failed', e);
+    }
+  }, [interpretation, catalog]);
 
   // Paste AI commands → auto sanitize (spec §10.1).
   const handlePasteCommands = useCallback((e: React.ClipboardEvent<HTMLTextAreaElement>) => {
@@ -184,6 +224,14 @@ export function useAppState() {
     (next: Locale) => {
       setLocale(next);
       persistSettings({ locale: next });
+    },
+    [persistSettings],
+  );
+
+  const changePromptMode = useCallback(
+    (next: PromptMode) => {
+      setPromptMode(next);
+      persistSettings({ promptMode: next });
     },
     [persistSettings],
   );
@@ -230,13 +278,18 @@ export function useAppState() {
   return {
     problem,
     setProblem,
+    interpretation,
+    setInterpretation,
     commandsRaw,
     setCommandsRaw,
     clearFirst,
     locale,
+    promptMode,
     catalog,
     catalogErr,
     copied,
+    copied1,
+    copied2,
     showHelp,
     setShowHelp,
     phase,
@@ -248,10 +301,13 @@ export function useAppState() {
     commandCount,
     canExecute,
     handleCopyPrompt,
+    handleCopyPrompt1,
+    handleCopyPrompt2,
     handlePasteCommands,
     handleClearCommands,
     setMode,
     changeLocale,
+    changePromptMode,
     handleExecute,
     handleClearCanvas,
     loadHistory,

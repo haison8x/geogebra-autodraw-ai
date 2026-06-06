@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "GeoGebra AutoDraw AI"
+  },
+  "appDesc": {
+    "message": "在 GeoGebra 上自动绘制平面几何图形：生成 AI Prompt，粘贴命令，一键绘图。"
+  }
+}
