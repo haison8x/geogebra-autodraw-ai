@@ -191,6 +191,13 @@ CONSTRAINTS:
 - Name every object (A, B, C, a, h, H...) so it can be referenced afterwards.
 - Return ONLY the command list, with no other text.
 
+GENERAL POSITION RULES (very important):
+- Draw the figure in GENERAL position; do NOT add any property the problem did not state.
+- A plain "triangle ABC" MUST be scalene (no equal sides, no right angle, no symmetry); only make it
+  isosceles/equilateral/right-angled when the problem explicitly says so.
+- DEFAULT for a plain "triangle ABC": use A(0,5), B(-3,0), C(7,0). Other plain polygons → irregular,
+  generic integer coordinates within roughly -10..10.
+
 CLEAN FIGURE RULES (very important):
 - Draw sides/edges with Segment, NOT with the infinite Line — unless the problem explicitly asks for a line or ray.
 - Any helper object used only to locate a point (infinite lines, perpendiculars, parallels, bisectors,
@@ -198,8 +205,8 @@ CLEAN FIGURE RULES (very important):
 - Hide the labels of every segment and line: add ShowLabel( <name>, false ). Keep labels ONLY on points.
 - The final visible figure must show only the required points and segments — no construction clutter, no stray labels.
 
-EXAMPLE — "draw triangle ABC and the altitude from A":
-... (Segment for sides, ShowLabel(seg,false), SetVisibleInView(helperLine,1,false), then Segment AH)
+EXAMPLE — "draw triangle ABC and the altitude from A" (plain triangle → default coords):
+... (A(0,5) B(-3,0) C(7,0), Segment for sides, ShowLabel(seg,false), SetVisibleInView(helperLine,1,false), Segment AH)
 
 ALLOWED COMMAND CATALOG:
 {{COMMANDS_CATALOG}}
