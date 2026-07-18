@@ -3,6 +3,9 @@
 export const PROMPT_TEMPLATE = `You are a GeoGebra expert. Draw the figure for the following plane-geometry
 problem using a list of GeoGebra commands (one command per line, NO explanations,
 NO numbering, NO markdown).
+EVERY line of your reply MUST be a single runnable GeoGebra command, in execution order
+(define an object before you use it). Never output commentary, thinking, or notes — no
+lines like "Actually…", "Wait…", "In GeoGebra…", or "Let me…". Commands only.
 
 PROBLEM:
 <problem>
@@ -18,7 +21,29 @@ CONSTRAINTS:
   Common illegal commands that do NOT exist: ParallelLine, Circumcenter, PerpendicularSegment, MidSegment.
   Correct alternatives: parallel line through P to line l → Line(P, l);
   circumcenter of circle c → Midpoint(c); perpendicular through P to line l → PerpendicularLine(P, l).
+- These commands FAIL in this app — never use them: Incenter, Incircle, TriangleCenter. See CIRCLE RULES
+  for how to build an incircle/incenter instead.
+- ANGLE BISECTOR: the bisector of the angle at a vertex X (the angle ∠YXZ) is AngleBisector(Y, X, Z)
+  — the three-point form, with the vertex in the MIDDLE. Example: the internal bisector of angle A in
+  triangle ABC → AngleBisector(B, A, C). (The two-line form AngleBisector(line, line) returns BOTH
+  bisectors and is usually not what you want.)
+- INTERSECTION INDEX: intersecting a line/ray with a circle (or any conic) gives TWO points. You MUST pass
+  an index to get ONE named point: Intersect(line, circle, 1) or Intersect(line, circle, 2). Writing
+  P = Intersect(line, circle) WITHOUT an index creates two auto-named points (P_1, P_2), so the name P will
+  not exist afterwards. Line∩line (a single point) does not need an index.
 - Define a free point with direct coordinate syntax: A = (-1, 6). Do NOT wrap in Point(): never A = Point((-1, 6)) and never A = Point({-1, 6}).
+- POINT NAMES MUST START WITH AN UPPERCASE LETTER. A coordinate assignment to a lowercase name creates a
+  VECTOR, not a point: p = (3, 4) is a vector and will break later commands (ClosestPoint, Intersect,
+  Segment…). Always name points A, B, C, M, O, P1… (uppercase first letter). Use lowercase names only for
+  segments/lines/numbers.
+- Do NOT use GeoGebra RESERVED names for your objects — they are built-in constants/units and silently break
+  the command: never name anything x, y, z, e, i, pi, rad, or deg. For a radius value use radius/r1/rho, etc.
+- POINT ON A PATH: to place a point that lies on an existing line, segment, or circle, use Point(<path>) —
+  e.g. a point on circle c → B = Point(c); a point on line l → D = Point(l). Do NOT use ClosestPoint for
+  this, and do NOT create a free point and hope it lands on the path.
+- ClosestPoint WORKS ONLY with a circle/conic path — ClosestPoint(line, point) and ClosestPoint(segment,
+  point) FAIL in this app. For the foot of the perpendicular from a point O to a line l, use
+  M = Intersect(l, PerpendicularLine(O, l)) instead.
 - Each line is one valid command runnable in the GeoGebra input bar.
 - Name every object (A, B, C, a, h, H...) so it can be referenced afterwards.
 - Return ONLY the command list, with no other text.
@@ -46,6 +71,15 @@ GENERAL POSITION RULES (very important):
 - DEFAULT for a plain "triangle ABC" (no special property given): use A(-1, 6), B(-3, 0), C(7, 0).
 - For any other plain polygon, pick irregular integer coordinates that look generic (no equal sides,
   no symmetry), within about -10..10 so the figure fits the view.
+- SQUARE / regular polygon with SPECIFIC vertex names (e.g. square ABCD, ABCL): place the first two
+  ADJACENT vertices as free points, then build each remaining vertex with Rotate so every vertex keeps its
+  exact required name. Do NOT build a square from perpendicular lines + circle intersections. Square ABCD:
+    A = (0, 0)
+    B = (4, 0)
+    C = Rotate(A, -90°, B)     # rotate A about B by -90°
+    D = Rotate(B, 90°, A)      # rotate B about A by +90°
+    sq = Polygon(A, B, C, D)
+  For "hình vuông ABCL" the fourth vertex is named L: D above becomes L = Rotate(B, 90°, A).
 
 CLEAN FIGURE RULES (very important):
 - VISIBILITY RULE: Every object EXPLICITLY MENTIONED in the problem (points, segments, lines, rays,
@@ -65,8 +99,16 @@ CIRCLE RULES (very important):
 - Circumscribed circle of triangle ABC: c = Circle(A, B, C). To get the circumcenter: O = Midpoint(c)
   (Midpoint(<Conic>) returns the center — do NOT use Circumcenter(), it is not a valid GeoGebra command).
 - For a cyclic polygon ABCD…: draw c = Circle(A, B, C) then O = Midpoint(c).
-- Inscribed circle of triangle ABC: I = Incenter(A, B, C) for the center, then draw the full circle with
-  c = Circle(I, Distance(I, Line(B, C))) — radius = distance from incenter to a side. Hide any helper line used.
+- Inscribed circle (đường tròn nội tiếp) of triangle ABC: Incenter / Incircle / TriangleCenter all FAIL, so
+  build the incenter as the intersection of two internal angle bisectors, then use the distance to a side
+  as the radius:
+    biB = AngleBisector(A, B, C)
+    SetVisibleInView(biB, 1, false)
+    biC = AngleBisector(B, C, A)
+    SetVisibleInView(biC, 1, false)
+    I = Intersect(biB, biC)          # incenter (a single point — line∩line needs no index)
+    inc = Circle(I, Distance(I, Line(B, C)))   # radius = distance from incenter to a side
+  Keep I (the center) visible; hide the helper bisector lines.
 - When a ray starts from a point INSIDE the circle (e.g. a point on a chord such as a foot of altitude,
   midpoint of a side, centroid), the ray hits the circle at exactly ONE point in the forward direction.
   In that case: use Ray( <start>, <direction> ) and call Intersect( <circle>, <ray> ) with NO index.
@@ -78,9 +120,9 @@ CIRCLE RULES (very important):
     Intersect(circle, line)       — returns 2 points, ambiguous index
     Intersect(circle, line, A)    — returns A itself (closest = distance 0), not the other point
     Intersect(circle, ray_from_A) — still returns 2 points (A + D)
-  Correct approach: ClosestPoint gives the midpoint of the chord; Reflect A across it gives D.
+  Correct approach: the foot of the perpendicular from O to the chord is its midpoint; Reflect A across it gives D.
     O = Midpoint(omega)           # center (already computed earlier)
-    M = ClosestPoint(lAD, O)      # foot of perp from O to chord = midpoint of chord
+    M = Intersect(lAD, PerpendicularLine(O, lAD))   # foot of perp from O to chord = midpoint of chord
     SetVisibleInView(M, 1, false)
     D = Reflect(A, M)             # reflect A across midpoint → other endpoint D
   Example — "line through A (on circle) parallel to BC, intersects circle again at D":
@@ -158,6 +200,9 @@ export function buildPrompt1(problem: string): string {
 
 export const PROMPT_TEMPLATE_2 = `You are a GeoGebra expert. Translate the construction plan below into
 a list of GeoGebra commands (one command per line, NO explanations, NO numbering, NO markdown).
+EVERY line of your reply MUST be a single runnable GeoGebra command, in execution order
+(define an object before you use it). Never output commentary, thinking, or notes — no
+lines like "Actually…", "Wait…", "In GeoGebra…", or "Let me…". Commands only.
 
 CONSTRUCTION PLAN:
 <plan>
@@ -173,7 +218,29 @@ CONSTRAINTS:
   Common illegal commands that do NOT exist: ParallelLine, Circumcenter, PerpendicularSegment, MidSegment.
   Correct alternatives: parallel line through P to line l → Line(P, l);
   circumcenter of circle c → Midpoint(c); perpendicular through P to line l → PerpendicularLine(P, l).
+- These commands FAIL in this app — never use them: Incenter, Incircle, TriangleCenter. See CIRCLE RULES
+  for how to build an incircle/incenter instead.
+- ANGLE BISECTOR: the bisector of the angle at a vertex X (the angle ∠YXZ) is AngleBisector(Y, X, Z)
+  — the three-point form, with the vertex in the MIDDLE. Example: the internal bisector of angle A in
+  triangle ABC → AngleBisector(B, A, C). (The two-line form AngleBisector(line, line) returns BOTH
+  bisectors and is usually not what you want.)
+- INTERSECTION INDEX: intersecting a line/ray with a circle (or any conic) gives TWO points. You MUST pass
+  an index to get ONE named point: Intersect(line, circle, 1) or Intersect(line, circle, 2). Writing
+  P = Intersect(line, circle) WITHOUT an index creates two auto-named points (P_1, P_2), so the name P will
+  not exist afterwards. Line∩line (a single point) does not need an index.
 - Define a free point with direct coordinate syntax: A = (-1, 6). Do NOT wrap in Point(): never A = Point((-1, 6)) and never A = Point({-1, 6}).
+- POINT NAMES MUST START WITH AN UPPERCASE LETTER. A coordinate assignment to a lowercase name creates a
+  VECTOR, not a point: p = (3, 4) is a vector and will break later commands (ClosestPoint, Intersect,
+  Segment…). Always name points A, B, C, M, O, P1… (uppercase first letter). Use lowercase names only for
+  segments/lines/numbers.
+- Do NOT use GeoGebra RESERVED names for your objects — they are built-in constants/units and silently break
+  the command: never name anything x, y, z, e, i, pi, rad, or deg. For a radius value use radius/r1/rho, etc.
+- POINT ON A PATH: to place a point that lies on an existing line, segment, or circle, use Point(<path>) —
+  e.g. a point on circle c → B = Point(c); a point on line l → D = Point(l). Do NOT use ClosestPoint for
+  this, and do NOT create a free point and hope it lands on the path.
+- ClosestPoint WORKS ONLY with a circle/conic path — ClosestPoint(line, point) and ClosestPoint(segment,
+  point) FAIL in this app. For the foot of the perpendicular from a point O to a line l, use
+  M = Intersect(l, PerpendicularLine(O, l)) instead.
 - Each line is one valid command runnable in the GeoGebra input bar.
 - Name every object (A, B, C, a, h, H...) so it can be referenced afterwards.
 - Return ONLY the command list, with no other text.
@@ -199,6 +266,15 @@ GENERAL POSITION RULES (very important):
 - DEFAULT for a plain "triangle ABC" (no special property given): use A(-1, 6), B(-3, 0), C(7, 0).
 - For any other plain polygon, pick irregular integer coordinates that look generic (no equal sides,
   no symmetry), within about -10..10 so the figure fits the view.
+- SQUARE / regular polygon with SPECIFIC vertex names (e.g. square ABCD, ABCL): place the first two
+  ADJACENT vertices as free points, then build each remaining vertex with Rotate so every vertex keeps its
+  exact required name. Do NOT build a square from perpendicular lines + circle intersections. Square ABCD:
+    A = (0, 0)
+    B = (4, 0)
+    C = Rotate(A, -90°, B)     # rotate A about B by -90°
+    D = Rotate(B, 90°, A)      # rotate B about A by +90°
+    sq = Polygon(A, B, C, D)
+  For "hình vuông ABCL" the fourth vertex is named L: D above becomes L = Rotate(B, 90°, A).
 
 CLEAN FIGURE RULES (very important):
 - VISIBILITY RULE: Every object marked "(visible)" in the construction plan MUST remain visible — do NOT
@@ -218,15 +294,23 @@ CIRCLE RULES (very important):
 - Circumscribed circle of triangle ABC: c = Circle(A, B, C). To get the circumcenter: O = Midpoint(c)
   (Midpoint(<Conic>) returns the center — do NOT use Circumcenter(), it is not a valid GeoGebra command).
 - For a cyclic polygon ABCD…: draw c = Circle(A, B, C) then O = Midpoint(c).
-- Inscribed circle of triangle ABC: I = Incenter(A, B, C) for the center, then draw the full circle with
-  c = Circle(I, Distance(I, Line(B, C))) — radius = distance from incenter to a side. Hide any helper line used.
+- Inscribed circle (đường tròn nội tiếp) of triangle ABC: Incenter / Incircle / TriangleCenter all FAIL, so
+  build the incenter as the intersection of two internal angle bisectors, then use the distance to a side
+  as the radius:
+    biB = AngleBisector(A, B, C)
+    SetVisibleInView(biB, 1, false)
+    biC = AngleBisector(B, C, A)
+    SetVisibleInView(biC, 1, false)
+    I = Intersect(biB, biC)          # incenter (a single point — line∩line needs no index)
+    inc = Circle(I, Distance(I, Line(B, C)))   # radius = distance from incenter to a side
+  Keep I (the center) visible; hide the helper bisector lines.
 - When a ray starts from a point INSIDE the circle (e.g. a point on a chord such as a foot of altitude,
   midpoint of a side, centroid), the ray hits the circle at exactly ONE point in the forward direction.
   In that case: use Ray( <start>, <direction> ) and call Intersect( <circle>, <ray> ) with NO index.
   Example — "ray MH hits (ABC) at P" (M = midpoint of BC, inside circle): P = Intersect(omega, Ray(M, H)).
 - Do NOT convert the ray to a Line and use an initial point or a numeric index — both are unreliable.
-- When a line passes through a known point A that is ALREADY ON the circle, use ClosestPoint + Reflect:
-    M = ClosestPoint(lAD, O)           # foot of perp from center O to chord = midpoint of chord
+- When a line passes through a known point A that is ALREADY ON the circle, use the foot-of-perpendicular + Reflect:
+    M = Intersect(lAD, PerpendicularLine(O, lAD))   # foot of perp from center O to chord = midpoint of chord
     SetVisibleInView(M, 1, false)
     D = Reflect(A, M)                  # reflect A across midpoint → other endpoint D
 

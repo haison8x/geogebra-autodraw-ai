@@ -31,3 +31,8 @@ __pycache__/
 
 # Temp
 tmp/
+
+# Eval harness — generated AI output + reports (problems.json is committed)
+eval/results/
+eval/report.json
+eval/report.html

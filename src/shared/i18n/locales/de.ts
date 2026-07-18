@@ -62,4 +62,12 @@ export const de: Messages = {
   helpAdvStep7: 'Füge ihn in eine KI ein — sie gibt die GeoGebra-Befehlsliste zurück.',
   helpAdvStep8: 'Füge die Befehle in das Feld „Befehlsliste" ein.',
   helpAdvStep9: 'Klicke auf „Ausführen (Zeichnen)" — die Figur wird im GeoGebra-Tab gezeichnet.',
+  samplesLabel: 'Beispielaufgaben',
+  samplesPlaceholder: 'Beispiel laden…',
+  samplesBasicGroup: 'Grundlegende Beispiele',
+  noteTitle: 'Hinweis: Der Prompt wird noch optimiert',
+  noteBody:
+    'Dieser Prompt ist noch nicht vollständig optimiert — manche Aufgaben werden möglicherweise falsch gezeichnet. Derzeit funktioniert er am besten mit Claude, ordentlich mit Gemini, und andere KIs wurden noch nicht getestet. Für bessere Ergebnisse:',
+  noteTip1: 'Formuliere die Aufgabe klar und Schritt für Schritt (welche Objekte in welcher Reihenfolge zu konstruieren sind), damit der Prompt wirksamer ist.',
+  noteTip2: 'Oder erstelle einen eigenen Prompt und füge die erhaltenen GeoGebra-Befehle direkt in das Befehlsfeld unten ein.',
 };

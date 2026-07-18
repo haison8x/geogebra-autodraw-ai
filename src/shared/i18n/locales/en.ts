@@ -61,4 +61,12 @@ export const en = {
   helpAdvStep7: 'Paste into an AI — it returns the GeoGebra command list.',
   helpAdvStep8: 'Paste the commands into the "Command list" box.',
   helpAdvStep9: 'Click "Execute (Draw)" — the figure is drawn in the GeoGebra tab.',
+  samplesLabel: 'Sample problems',
+  samplesPlaceholder: 'Load a sample…',
+  samplesBasicGroup: 'Basic examples',
+  noteTitle: 'Note: the prompt is still being tuned',
+  noteBody:
+    'This prompt is not fully optimized — some problems may be drawn incorrectly. It currently works best with Claude, works reasonably well on Gemini, and other AIs have not been tested yet. For better results:',
+  noteTip1: 'Rephrase the problem clearly, step by step (which objects to construct and in what order) so the prompt is more effective.',
+  noteTip2: 'Or build your own prompt, then paste the resulting GeoGebra commands straight into the command box below.',
 };

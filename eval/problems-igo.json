@@ -1,0 +1,44 @@
+[
+  {
+    "id": "igo-2023-int-p3",
+    "category": "IGO 2023 Intermediate P3",
+    "problem": "Let Omega be the circumcircle of triangle ABC with angle B = 3 * angle C. The internal angle bisector of A intersects Omega and BC at M and D respectively. Point E lies on the extension of line MC from M such that ME equals the radius of Omega. Draw the figure (circumcircle, points M, D, E, and the circumcircles of triangles ACE and BDM).",
+    "expectedPoints": ["A", "B", "C", "M", "D", "E"],
+    "expectedConics": 1
+  },
+  {
+    "id": "igo-2023-int-p4",
+    "category": "IGO 2023 Intermediate P4",
+    "problem": "Let ABC be a triangle and P be the midpoint of arc BAC of the circumcircle of triangle ABC, with orthocenter H. Let Q, S be points such that HAPQ and SACQ are parallelograms. Let T be the midpoint of AQ, and R be the intersection point of the lines SQ and PB. Draw the figure (points P, H, Q, S, T, R).",
+    "expectedPoints": ["A", "B", "C", "P", "H", "Q", "S", "T", "R"],
+    "expectedConics": 1
+  },
+  {
+    "id": "igo-2024-int-p3",
+    "category": "IGO 2024 Intermediate P3",
+    "problem": "Let ABC be an acute triangle with a point D on side BC. Let J be a point on side AC such that angle BAD = 2 * angle ADJ, and omega be the circumcircle of triangle CDJ. The line AD intersects omega again at a point P, and Q is the foot of the altitude from J to AB. Draw the figure (point J, circle omega, points P and Q).",
+    "expectedPoints": ["A", "B", "C", "D", "J", "P", "Q"],
+    "expectedConics": 1
+  },
+  {
+    "id": "igo-2025-int-p2",
+    "category": "IGO 2025 Intermediate P2",
+    "problem": "A square ABCD is given. Point E is the midpoint of side BC and F lies on the side AB such that DE is perpendicular to EF. Point G lies inside the square such that GF = EF and GF is perpendicular to EF. Lines AC and DE intersect at point X. Draw the figure (points E, F, G, X).",
+    "expectedPoints": ["A", "B", "C", "D", "E", "F", "G", "X"],
+    "expectedConics": 0
+  },
+  {
+    "id": "igo-2025-int-p3",
+    "category": "IGO 2025 Intermediate P3",
+    "problem": "Triangle ABC and its circumcircle Omega are given. Point T is the midpoint of arc BC of Omega (the arc that does not include A). Line BT intersects the external angle bisector of angle BAC at point P. H is the foot of the perpendicular from A onto the line tangent to Omega at T, and M is the midpoint of segment AP. Draw the figure (point T, point P, point H, point M).",
+    "expectedPoints": ["A", "B", "C", "T", "P", "H", "M"],
+    "expectedConics": 1
+  },
+  {
+    "id": "igo-2025-elem-p5",
+    "category": "IGO 2025 Elementary P5",
+    "problem": "In triangle ABC with angle CAB = 15 degrees and angle CBA = 30 degrees, points X and Y lie inside the angle BCA such that angle BCX = angle ACY = 45 degrees and BC = CY, AC = CX. Let the line XY meet AB at point Z. Draw the figure (points X, Y, Z).",
+    "expectedPoints": ["A", "B", "C", "X", "Y", "Z"],
+    "expectedConics": 0
+  }
+]

@@ -31,4 +31,34 @@ describe('sanitizeCommands', () => {
     expect(sanitizeCommands('')).toEqual([]);
     expect(sanitizeCommands('\n  \n')).toEqual([]);
   });
+
+  it('drops leaked reasoning prose, keeps real commands', () => {
+    const raw = [
+      'Wait, if we drag A, the line lB changes, but B stays on the circle.',
+      'Actually, if we define:',
+      'A = (0, 0)',
+      'c = Circle(A, 5)',
+      'In GeoGebra, if you type `B = Point(c)` it places a point on the path.',
+      'B = Point(c)',
+      'C = Point(c)',
+      'ShowLabel(c, false)',
+      'But to be absolutely safe, we can also do:',
+      'BC = Segment(B, C)',
+    ].join('\n');
+    expect(sanitizeCommands(raw)).toEqual([
+      'A = (0, 0)',
+      'c = Circle(A, 5)',
+      'B = Point(c)',
+      'C = Point(c)',
+      'ShowLabel(c, false)',
+      'BC = Segment(B, C)',
+    ]);
+  });
+
+  it('keeps bare command calls and subscripted names', () => {
+    expect(sanitizeCommands('SetVisibleInView(l, 1, false)\nP_{1} = Intersect(a, b, 1)')).toEqual([
+      'SetVisibleInView(l, 1, false)',
+      'P_{1} = Intersect(a, b, 1)',
+    ]);
+  });
 });

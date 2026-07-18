@@ -62,4 +62,12 @@ export const vi: Messages = {
   helpAdvStep7: 'Dán sang AI — AI trả về danh sách lệnh GeoGebra.',
   helpAdvStep8: 'Dán lệnh vào ô "Danh sách lệnh".',
   helpAdvStep9: 'Bấm "Thực thi (Vẽ)" — hình được vẽ trong tab GeoGebra.',
+  samplesLabel: 'Bài toán mẫu',
+  samplesPlaceholder: 'Chọn bài mẫu…',
+  samplesBasicGroup: 'Ví dụ cơ bản',
+  noteTitle: 'Lưu ý: prompt vẫn đang được tinh chỉnh',
+  noteBody:
+    'Bộ prompt chưa được tối ưu hoàn toàn — một số bài có thể vẽ chưa chính xác. Hiện hoạt động tốt nhất với Claude, hoạt động ổn trên Gemini, còn các AI khác thì chưa được test. Để có kết quả tốt hơn:',
+  noteTip1: 'Diễn giải bài toán thật rõ ràng, theo từng bước (vẽ đối tượng nào, theo thứ tự nào) để prompt hiệu quả hơn.',
+  noteTip2: 'Hoặc tự xây bộ prompt riêng, rồi dán các lệnh GeoGebra thu được thẳng vào ô lệnh bên dưới.',
 };

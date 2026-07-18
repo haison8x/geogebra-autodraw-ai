@@ -62,4 +62,12 @@ export const ja: Messages = {
   helpAdvStep7: 'AI に貼り付けます — AI が GeoGebra コマンド一覧を返します。',
   helpAdvStep8: 'コマンドを「コマンド一覧」欄に貼り付けます。',
   helpAdvStep9: '「実行（描画）」をクリック — GeoGebra タブに図が描画されます。',
+  samplesLabel: 'サンプル問題',
+  samplesPlaceholder: 'サンプルを読み込む…',
+  samplesBasicGroup: '基本的な例',
+  noteTitle: '注意：プロンプトは調整中です',
+  noteBody:
+    'このプロンプトは完全には最適化されていません。一部の問題は正しく描画されないことがあります。現在は Claude で最も効果的で、Gemini でも問題なく動作しますが、他の AI はまだテストされていません。より良い結果を得るには：',
+  noteTip1: '問題を段階的に明確に言い換えてください（どのオブジェクトをどの順序で作図するか）。プロンプトがより効果的になります。',
+  noteTip2: 'または独自のプロンプトを作成し、得られた GeoGebra コマンドを下のコマンド欄に直接貼り付けてください。',
 };

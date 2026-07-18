@@ -2,6 +2,7 @@
 // Fully localized (Epic 6) via t(locale, key).
 import { SUPPORTED_LOCALES, LOCALE_NATIVE_NAMES, type Locale } from '@/shared/i18n';
 import type { PromptMode } from '@/shared/storage';
+import { SAMPLES, samplesByGroup } from '@/shared/samples';
 import { useAppState } from './hooks/useAppState';
 import { StatusPanel } from './components/StatusPanel';
 import { HelpPanel } from './components/HelpPanel';
@@ -81,6 +82,16 @@ export default function App() {
 
       {showHelp && <HelpPanel tr={tr} promptMode={promptMode} onClose={() => setShowHelp(false)} />}
 
+      {/* Note: prompt is still being tuned — set expectations + how to get better results */}
+      <details className="rounded border border-sky-300 bg-sky-50 p-2 text-xs text-sky-900" open>
+        <summary className="cursor-pointer font-medium">ℹ️ {tr('noteTitle')}</summary>
+        <p className="mt-1">{tr('noteBody')}</p>
+        <ul className="mt-1 list-disc space-y-1 pl-4">
+          <li>{tr('noteTip1')}</li>
+          <li>{tr('noteTip2')}</li>
+        </ul>
+      </details>
+
       {/* Gating banner — extension only works on a Calculator tab */}
       {!onCalc && (
         <div className="rounded border border-amber-300 bg-amber-50 p-2 text-xs text-amber-800">
@@ -95,9 +106,34 @@ export default function App() {
         </div>
       )}
 
-      {/* 1. Problem */}
+      {/* 1. Problem (with a sample-problem picker) */}
       <label className="block">
-        <span className="font-medium">{tr('problemLabel')}</span>
+        <div className="flex items-center justify-between gap-2">
+          <span className="font-medium">{tr('problemLabel')}</span>
+          <select
+            className="max-w-[60%] rounded border px-1 py-0.5 text-xs"
+            aria-label={tr('samplesLabel')}
+            value=""
+            onChange={(e) => {
+              const s = SAMPLES.find((x) => x.id === e.target.value);
+              if (s) setProblem(s.problem);
+              e.target.value = '';
+            }}
+          >
+            <option value="" disabled>
+              {tr('samplesPlaceholder')}
+            </option>
+            {samplesByGroup().map(({ group, items }) => (
+              <optgroup key={group} label={group === 'Basic examples' ? tr('samplesBasicGroup') : group}>
+                {items.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.label}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </div>
         <textarea
           className="mt-1 w-full rounded border p-2"
           rows={4}

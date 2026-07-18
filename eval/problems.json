@@ -1,0 +1,1211 @@
+[
+  {
+    "id": "triangle-median-01",
+    "category": "triangle-median",
+    "problem": "Cho tam giác ABC. Gọi D là trung điểm của cạnh BC. Vẽ tam giác ABC và đường trung tuyến AD.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-altitude-01",
+    "category": "triangle-altitude",
+    "problem": "Cho tam giác ABC. Vẽ đường cao AE hạ từ đỉnh A xuống cạnh BC (E là chân đường cao).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-bisector-01",
+    "category": "triangle-bisector",
+    "problem": "Cho tam giác ABC. Vẽ đường phân giác trong của góc A, cắt cạnh BC tại F.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "F"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-centroid-01",
+    "category": "triangle-centroid",
+    "problem": "Cho tam giác ABC. Xác định trọng tâm G của tam giác (giao điểm ba đường trung tuyến).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "G"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-orthocenter-01",
+    "category": "triangle-orthocenter",
+    "problem": "Cho tam giác ABC. Xác định trực tâm H của tam giác (giao điểm ba đường cao).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "H"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-circumcircle-01",
+    "category": "triangle-circumcircle",
+    "problem": "Cho tam giác ABC. Vẽ đường tròn ngoại tiếp tam giác và xác định tâm I của đường tròn đó.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "I"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "triangle-incircle-01",
+    "category": "triangle-incircle",
+    "problem": "Cho tam giác ABC. Vẽ đường tròn nội tiếp tam giác và xác định tâm K (giao điểm ba đường phân giác trong).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "K"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "triangle-midsegment-01",
+    "category": "triangle-midsegment",
+    "problem": "Cho tam giác ABC. Gọi D, E lần lượt là trung điểm của AB và AC. Vẽ đường trung bình DE.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-perp-bisector-01",
+    "category": "triangle-perp-bisector",
+    "problem": "Cho tam giác ABC. Gọi E là trung điểm BC. Vẽ đường trung trực của đoạn BC.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-reflection-01",
+    "category": "triangle-reflection",
+    "problem": "Cho tam giác ABC, đường cao AF (F thuộc BC). Gọi G là điểm đối xứng của F qua đường thẳng AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "F",
+      "G"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-square-01",
+    "category": "quad-square",
+    "problem": "Vẽ hình vuông ABCG.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "G"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-rectangle-01",
+    "category": "quad-rectangle",
+    "problem": "Vẽ hình chữ nhật ABCH với hai kích thước khác nhau.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "H"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-parallelogram-01",
+    "category": "quad-parallelogram",
+    "problem": "Vẽ hình bình hành ABCI.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "I"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-diagonals-01",
+    "category": "quad-diagonals",
+    "problem": "Vẽ hình bình hành ABCK. Vẽ hai đường chéo AC và BK, chúng cắt nhau tại L.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "K",
+      "L"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-trapezoid-01",
+    "category": "quad-trapezoid",
+    "problem": "Vẽ hình thang ABCD có AB song song với CD.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-midpoints-01",
+    "category": "quad-midpoints",
+    "problem": "Cho tứ giác ABCE. Gọi F, G, H, I lần lượt là trung điểm các cạnh AB, BC, CE, EA.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "circle-center-radius-01",
+    "category": "circle-center-radius",
+    "problem": "Vẽ đường tròn tâm A bán kính bằng độ dài AB, trong đó B là một điểm cho trước.",
+    "expectedPoints": [
+      "A",
+      "B"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "circle-diameter-01",
+    "category": "circle-diameter",
+    "problem": "Cho đoạn thẳng AB. Vẽ đường tròn đường kính AB với tâm C là trung điểm AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "circle-chord-01",
+    "category": "circle-chord",
+    "problem": "Cho đường tròn tâm A. Lấy hai điểm B, C trên đường tròn và vẽ dây cung BC.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "circle-two-intersect-01",
+    "category": "circle-two-intersect",
+    "problem": "Vẽ hai đường tròn tâm A và tâm B cắt nhau tại hai điểm C và I.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "I"
+    ],
+    "expectedConics": 2
+  },
+  {
+    "id": "point-midpoint-01",
+    "category": "point-midpoint",
+    "problem": "Cho hai điểm A và B. Vẽ đoạn thẳng AB và trung điểm C của nó.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "line-parallel-01",
+    "category": "line-parallel",
+    "problem": "Cho đoạn thẳng AB và một điểm C nằm ngoài AB. Vẽ đường thẳng đi qua C và song song với AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "line-perpendicular-01",
+    "category": "line-perpendicular",
+    "problem": "Cho đoạn thẳng AB và điểm C ngoài đường thẳng AB. Vẽ đường thẳng qua C vuông góc với AB, cắt AB tại E.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "point-reflection-point-01",
+    "category": "point-reflection-point",
+    "problem": "Cho điểm A và điểm B. Vẽ điểm C đối xứng với A qua B.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "point-reflection-line-01",
+    "category": "point-reflection-line",
+    "problem": "Cho đoạn thẳng AB và điểm C. Vẽ điểm G đối xứng với C qua đường thẳng AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "G"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "line-intersection-01",
+    "category": "line-intersection",
+    "problem": "Cho hai đoạn thẳng AB và CH. Vẽ giao điểm I của hai đường thẳng AB và CH.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "H",
+      "I"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-tangent-circumcircle-diameter-01",
+    "category": "triangle-tangent-circumcircle-diameter",
+    "problem": "Cho tam giác ABC nội tiếp đường tròn tâm I. Vẽ đường kính AK của đường tròn ngoại tiếp.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "I",
+      "K"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "triangle-median-02",
+    "category": "triangle-median",
+    "problem": "Cho tam giác ABC. Gọi N là trung điểm của cạnh BC. Vẽ tam giác ABC và đường trung tuyến AN.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "N"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-altitude-02",
+    "category": "triangle-altitude",
+    "problem": "Cho tam giác ABC. Vẽ đường cao AG hạ từ đỉnh A xuống cạnh BC (G là chân đường cao).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "G"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-bisector-02",
+    "category": "triangle-bisector",
+    "problem": "Cho tam giác ABC. Vẽ đường phân giác trong của góc A, cắt cạnh BC tại H.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "H"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-centroid-02",
+    "category": "triangle-centroid",
+    "problem": "Cho tam giác ABC. Xác định trọng tâm I của tam giác (giao điểm ba đường trung tuyến).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "I"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-orthocenter-02",
+    "category": "triangle-orthocenter",
+    "problem": "Cho tam giác ABC. Xác định trực tâm K của tam giác (giao điểm ba đường cao).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "K"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-circumcircle-02",
+    "category": "triangle-circumcircle",
+    "problem": "Cho tam giác ABC. Vẽ đường tròn ngoại tiếp tam giác và xác định tâm L của đường tròn đó.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "L"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "triangle-incircle-02",
+    "category": "triangle-incircle",
+    "problem": "Cho tam giác ABC. Vẽ đường tròn nội tiếp tam giác và xác định tâm M (giao điểm ba đường phân giác trong).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "M"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "triangle-midsegment-02",
+    "category": "triangle-midsegment",
+    "problem": "Cho tam giác ABC. Gọi N, O lần lượt là trung điểm của AB và AC. Vẽ đường trung bình NO.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "N",
+      "O"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-perp-bisector-02",
+    "category": "triangle-perp-bisector",
+    "problem": "Cho tam giác ABC. Gọi G là trung điểm BC. Vẽ đường trung trực của đoạn BC.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "G"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-reflection-02",
+    "category": "triangle-reflection",
+    "problem": "Cho tam giác ABC, đường cao AH (H thuộc BC). Gọi I là điểm đối xứng của H qua đường thẳng AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "H",
+      "I"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-square-02",
+    "category": "quad-square",
+    "problem": "Vẽ hình vuông ABCI.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "I"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-rectangle-02",
+    "category": "quad-rectangle",
+    "problem": "Vẽ hình chữ nhật ABCK với hai kích thước khác nhau.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "K"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-parallelogram-02",
+    "category": "quad-parallelogram",
+    "problem": "Vẽ hình bình hành ABCL.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "L"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-diagonals-02",
+    "category": "quad-diagonals",
+    "problem": "Vẽ hình bình hành ABCM. Vẽ hai đường chéo AC và BM, chúng cắt nhau tại N.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "M",
+      "N"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-trapezoid-02",
+    "category": "quad-trapezoid",
+    "problem": "Vẽ hình thang ABCN có AB song song với CN.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "N"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-midpoints-02",
+    "category": "quad-midpoints",
+    "problem": "Cho tứ giác ABCG. Gọi H, I, K, L lần lượt là trung điểm các cạnh AB, BC, CG, GA.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "G",
+      "H",
+      "I",
+      "K",
+      "L"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "circle-center-radius-02",
+    "category": "circle-center-radius",
+    "problem": "Vẽ đường tròn tâm A bán kính bằng độ dài AB, trong đó B là một điểm cho trước.",
+    "expectedPoints": [
+      "A",
+      "B"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "circle-diameter-02",
+    "category": "circle-diameter",
+    "problem": "Cho đoạn thẳng AB. Vẽ đường tròn đường kính AB với tâm C là trung điểm AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "circle-chord-02",
+    "category": "circle-chord",
+    "problem": "Cho đường tròn tâm A. Lấy hai điểm B, C trên đường tròn và vẽ dây cung BC.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "circle-two-intersect-02",
+    "category": "circle-two-intersect",
+    "problem": "Vẽ hai đường tròn tâm A và tâm B cắt nhau tại hai điểm C và L.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "L"
+    ],
+    "expectedConics": 2
+  },
+  {
+    "id": "point-midpoint-02",
+    "category": "point-midpoint",
+    "problem": "Cho hai điểm A và B. Vẽ đoạn thẳng AB và trung điểm C của nó.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "line-parallel-02",
+    "category": "line-parallel",
+    "problem": "Cho đoạn thẳng AB và một điểm C nằm ngoài AB. Vẽ đường thẳng đi qua C và song song với AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "line-perpendicular-02",
+    "category": "line-perpendicular",
+    "problem": "Cho đoạn thẳng AB và điểm C ngoài đường thẳng AB. Vẽ đường thẳng qua C vuông góc với AB, cắt AB tại G.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "G"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "point-reflection-point-02",
+    "category": "point-reflection-point",
+    "problem": "Cho điểm A và điểm B. Vẽ điểm C đối xứng với A qua B.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "point-reflection-line-02",
+    "category": "point-reflection-line",
+    "problem": "Cho đoạn thẳng AB và điểm C. Vẽ điểm I đối xứng với C qua đường thẳng AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "I"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "line-intersection-02",
+    "category": "line-intersection",
+    "problem": "Cho hai đoạn thẳng AB và CK. Vẽ giao điểm L của hai đường thẳng AB và CK.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "K",
+      "L"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-tangent-circumcircle-diameter-02",
+    "category": "triangle-tangent-circumcircle-diameter",
+    "problem": "Cho tam giác ABC nội tiếp đường tròn tâm L. Vẽ đường kính AM của đường tròn ngoại tiếp.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "L",
+      "M"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "triangle-median-03",
+    "category": "triangle-median",
+    "problem": "Cho tam giác ABC. Gọi P là trung điểm của cạnh BC. Vẽ tam giác ABC và đường trung tuyến AP.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "P"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-altitude-03",
+    "category": "triangle-altitude",
+    "problem": "Cho tam giác ABC. Vẽ đường cao AQ hạ từ đỉnh A xuống cạnh BC (Q là chân đường cao).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "Q"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-bisector-03",
+    "category": "triangle-bisector",
+    "problem": "Cho tam giác ABC. Vẽ đường phân giác trong của góc A, cắt cạnh BC tại K.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "K"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-centroid-03",
+    "category": "triangle-centroid",
+    "problem": "Cho tam giác ABC. Xác định trọng tâm L của tam giác (giao điểm ba đường trung tuyến).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "L"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-orthocenter-03",
+    "category": "triangle-orthocenter",
+    "problem": "Cho tam giác ABC. Xác định trực tâm M của tam giác (giao điểm ba đường cao).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "M"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-circumcircle-03",
+    "category": "triangle-circumcircle",
+    "problem": "Cho tam giác ABC. Vẽ đường tròn ngoại tiếp tam giác và xác định tâm N của đường tròn đó.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "N"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "triangle-incircle-03",
+    "category": "triangle-incircle",
+    "problem": "Cho tam giác ABC. Vẽ đường tròn nội tiếp tam giác và xác định tâm O (giao điểm ba đường phân giác trong).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "O"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "triangle-midsegment-03",
+    "category": "triangle-midsegment",
+    "problem": "Cho tam giác ABC. Gọi P, Q lần lượt là trung điểm của AB và AC. Vẽ đường trung bình PQ.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "P",
+      "Q"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-perp-bisector-03",
+    "category": "triangle-perp-bisector",
+    "problem": "Cho tam giác ABC. Gọi Q là trung điểm BC. Vẽ đường trung trực của đoạn BC.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "Q"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-reflection-03",
+    "category": "triangle-reflection",
+    "problem": "Cho tam giác ABC, đường cao AK (K thuộc BC). Gọi L là điểm đối xứng của K qua đường thẳng AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "K",
+      "L"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-square-03",
+    "category": "quad-square",
+    "problem": "Vẽ hình vuông ABCL.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "L"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-rectangle-03",
+    "category": "quad-rectangle",
+    "problem": "Vẽ hình chữ nhật ABCM với hai kích thước khác nhau.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "M"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-parallelogram-03",
+    "category": "quad-parallelogram",
+    "problem": "Vẽ hình bình hành ABCN.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "N"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-diagonals-03",
+    "category": "quad-diagonals",
+    "problem": "Vẽ hình bình hành ABCO. Vẽ hai đường chéo AC và BO, chúng cắt nhau tại P.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "O",
+      "P"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-trapezoid-03",
+    "category": "quad-trapezoid",
+    "problem": "Vẽ hình thang ABCP có AB song song với CP.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "P"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-midpoints-03",
+    "category": "quad-midpoints",
+    "problem": "Cho tứ giác ABCQ. Gọi D, E, F, G lần lượt là trung điểm các cạnh AB, BC, CQ, QA.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "Q",
+      "D",
+      "E",
+      "F",
+      "G"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "circle-center-radius-03",
+    "category": "circle-center-radius",
+    "problem": "Vẽ đường tròn tâm A bán kính bằng độ dài AB, trong đó B là một điểm cho trước.",
+    "expectedPoints": [
+      "A",
+      "B"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "circle-diameter-03",
+    "category": "circle-diameter",
+    "problem": "Cho đoạn thẳng AB. Vẽ đường tròn đường kính AB với tâm C là trung điểm AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "circle-chord-03",
+    "category": "circle-chord",
+    "problem": "Cho đường tròn tâm A. Lấy hai điểm B, C trên đường tròn và vẽ dây cung BC.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "circle-two-intersect-03",
+    "category": "circle-two-intersect",
+    "problem": "Vẽ hai đường tròn tâm A và tâm B cắt nhau tại hai điểm C và N.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "N"
+    ],
+    "expectedConics": 2
+  },
+  {
+    "id": "point-midpoint-03",
+    "category": "point-midpoint",
+    "problem": "Cho hai điểm A và B. Vẽ đoạn thẳng AB và trung điểm C của nó.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "line-parallel-03",
+    "category": "line-parallel",
+    "problem": "Cho đoạn thẳng AB và một điểm C nằm ngoài AB. Vẽ đường thẳng đi qua C và song song với AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "line-perpendicular-03",
+    "category": "line-perpendicular",
+    "problem": "Cho đoạn thẳng AB và điểm C ngoài đường thẳng AB. Vẽ đường thẳng qua C vuông góc với AB, cắt AB tại Q.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "Q"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "point-reflection-point-03",
+    "category": "point-reflection-point",
+    "problem": "Cho điểm A và điểm B. Vẽ điểm C đối xứng với A qua B.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "point-reflection-line-03",
+    "category": "point-reflection-line",
+    "problem": "Cho đoạn thẳng AB và điểm C. Vẽ điểm L đối xứng với C qua đường thẳng AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "L"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "line-intersection-03",
+    "category": "line-intersection",
+    "problem": "Cho hai đoạn thẳng AB và CM. Vẽ giao điểm N của hai đường thẳng AB và CM.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "M",
+      "N"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-tangent-circumcircle-diameter-03",
+    "category": "triangle-tangent-circumcircle-diameter",
+    "problem": "Cho tam giác ABC nội tiếp đường tròn tâm N. Vẽ đường kính AO của đường tròn ngoại tiếp.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "N",
+      "O"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "triangle-median-04",
+    "category": "triangle-median",
+    "problem": "Cho tam giác ABC. Gọi D là trung điểm của cạnh BC. Vẽ tam giác ABC và đường trung tuyến AD.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-altitude-04",
+    "category": "triangle-altitude",
+    "problem": "Cho tam giác ABC. Vẽ đường cao AE hạ từ đỉnh A xuống cạnh BC (E là chân đường cao).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-bisector-04",
+    "category": "triangle-bisector",
+    "problem": "Cho tam giác ABC. Vẽ đường phân giác trong của góc A, cắt cạnh BC tại F.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "F"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-centroid-04",
+    "category": "triangle-centroid",
+    "problem": "Cho tam giác ABC. Xác định trọng tâm N của tam giác (giao điểm ba đường trung tuyến).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "N"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-orthocenter-04",
+    "category": "triangle-orthocenter",
+    "problem": "Cho tam giác ABC. Xác định trực tâm O của tam giác (giao điểm ba đường cao).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "O"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-circumcircle-04",
+    "category": "triangle-circumcircle",
+    "problem": "Cho tam giác ABC. Vẽ đường tròn ngoại tiếp tam giác và xác định tâm P của đường tròn đó.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "P"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "triangle-incircle-04",
+    "category": "triangle-incircle",
+    "problem": "Cho tam giác ABC. Vẽ đường tròn nội tiếp tam giác và xác định tâm Q (giao điểm ba đường phân giác trong).",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "Q"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "triangle-midsegment-04",
+    "category": "triangle-midsegment",
+    "problem": "Cho tam giác ABC. Gọi D, E lần lượt là trung điểm của AB và AC. Vẽ đường trung bình DE.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-perp-bisector-04",
+    "category": "triangle-perp-bisector",
+    "problem": "Cho tam giác ABC. Gọi E là trung điểm BC. Vẽ đường trung trực của đoạn BC.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "E"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "triangle-reflection-04",
+    "category": "triangle-reflection",
+    "problem": "Cho tam giác ABC, đường cao AF (F thuộc BC). Gọi G là điểm đối xứng của F qua đường thẳng AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "F",
+      "G"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-square-04",
+    "category": "quad-square",
+    "problem": "Vẽ hình vuông ABCN.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "N"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-rectangle-04",
+    "category": "quad-rectangle",
+    "problem": "Vẽ hình chữ nhật ABCO với hai kích thước khác nhau.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "O"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-parallelogram-04",
+    "category": "quad-parallelogram",
+    "problem": "Vẽ hình bình hành ABCP.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "P"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-diagonals-04",
+    "category": "quad-diagonals",
+    "problem": "Vẽ hình bình hành ABCQ. Vẽ hai đường chéo AC và BQ, chúng cắt nhau tại D.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "Q",
+      "D"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-trapezoid-04",
+    "category": "quad-trapezoid",
+    "problem": "Vẽ hình thang ABCD có AB song song với CD.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "quad-midpoints-04",
+    "category": "quad-midpoints",
+    "problem": "Cho tứ giác ABCE. Gọi F, G, H, I lần lượt là trung điểm các cạnh AB, BC, CE, EA.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I"
+    ],
+    "expectedConics": 0
+  },
+  {
+    "id": "circle-center-radius-04",
+    "category": "circle-center-radius",
+    "problem": "Vẽ đường tròn tâm A bán kính bằng độ dài AB, trong đó B là một điểm cho trước.",
+    "expectedPoints": [
+      "A",
+      "B"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "circle-diameter-04",
+    "category": "circle-diameter",
+    "problem": "Cho đoạn thẳng AB. Vẽ đường tròn đường kính AB với tâm C là trung điểm AB.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 1
+  },
+  {
+    "id": "circle-chord-04",
+    "category": "circle-chord",
+    "problem": "Cho đường tròn tâm A. Lấy hai điểm B, C trên đường tròn và vẽ dây cung BC.",
+    "expectedPoints": [
+      "A",
+      "B",
+      "C"
+    ],
+    "expectedConics": 1
+  }
+]

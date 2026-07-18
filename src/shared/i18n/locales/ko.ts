@@ -62,4 +62,12 @@ export const ko: Messages = {
   helpAdvStep7: 'AI에 붙여넣습니다 — AI가 GeoGebra 명령 목록을 반환합니다.',
   helpAdvStep8: '명령을 "명령 목록" 입력란에 붙여넣습니다.',
   helpAdvStep9: '"실행 (그리기)"을 클릭하면 GeoGebra 탭에 도형이 그려집니다.',
+  samplesLabel: '예제 문제',
+  samplesPlaceholder: '예제 불러오기…',
+  samplesBasicGroup: '기본 예제',
+  noteTitle: '참고: 프롬프트는 아직 조정 중입니다',
+  noteBody:
+    '이 프롬프트는 완전히 최적화되지 않았습니다 — 일부 문제는 정확하게 그려지지 않을 수 있습니다. 현재 Claude에서 가장 잘 작동하고 Gemini에서도 무난하게 작동하며, 다른 AI는 아직 테스트되지 않았습니다. 더 나은 결과를 위해:',
+  noteTip1: '문제를 단계별로 명확하게 다시 설명하세요(어떤 대상을 어떤 순서로 작도할지). 그러면 프롬프트가 더 효과적입니다.',
+  noteTip2: '또는 직접 프롬프트를 만들고, 얻은 GeoGebra 명령을 아래 명령 상자에 바로 붙여넣으세요.',
 };

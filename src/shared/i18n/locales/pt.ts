@@ -62,4 +62,12 @@ export const pt: Messages = {
   helpAdvStep7: 'Cole em uma IA — ela retorna a lista de comandos GeoGebra.',
   helpAdvStep8: 'Cole os comandos na caixa "Lista de comandos".',
   helpAdvStep9: 'Clique em "Executar (Desenhar)" — a figura é desenhada na aba do GeoGebra.',
+  samplesLabel: 'Problemas de exemplo',
+  samplesPlaceholder: 'Carregar um exemplo…',
+  samplesBasicGroup: 'Exemplos básicos',
+  noteTitle: 'Nota: o prompt ainda está sendo ajustado',
+  noteBody:
+    'Este prompt não está totalmente otimizado — alguns problemas podem ser desenhados incorretamente. Atualmente funciona melhor com o Claude, funciona razoavelmente no Gemini e outras IAs ainda não foram testadas. Para melhores resultados:',
+  noteTip1: 'Reformule o problema com clareza, passo a passo (quais objetos construir e em que ordem) para o prompt ser mais eficaz.',
+  noteTip2: 'Ou crie seu próprio prompt e cole os comandos do GeoGebra resultantes diretamente na caixa de comandos abaixo.',
 };

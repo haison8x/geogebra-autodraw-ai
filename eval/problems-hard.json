@@ -1,0 +1,72 @@
+[
+  {
+    "id": "hard-orthocenter-feet",
+    "category": "triangle-orthocenter-feet",
+    "problem": "Triangle ABC is scalene. Draw the three altitudes: AD from A perpendicular to BC, BE from B perpendicular to CA, and CF from C perpendicular to AB, where D, E, F are the feet of the altitudes on the respective sides. Mark the orthocenter H where the three altitudes meet.",
+    "expectedPoints": ["A", "B", "C", "D", "E", "F", "H"],
+    "expectedConics": 0
+  },
+  {
+    "id": "hard-nine-point-midcircle",
+    "category": "nine-point",
+    "problem": "In triangle ABC, let M, N, P be the midpoints of sides BC, CA, AB respectively. Draw the circle passing through M, N, and P, and mark its center J.",
+    "expectedPoints": ["A", "B", "C", "M", "N", "P", "J"],
+    "expectedConics": 1
+  },
+  {
+    "id": "hard-diameter-config",
+    "category": "circumcircle-diameter",
+    "problem": "Triangle ABC is inscribed in a circle with center O. Draw the circumscribed circle, then draw the diameter starting at A and passing through O, meeting the circle again at the point D. Finally draw segments BD and CD.",
+    "expectedPoints": ["A", "B", "C", "O", "D"],
+    "expectedConics": 1
+  },
+  {
+    "id": "hard-incircle-contacts",
+    "category": "incircle-contacts",
+    "problem": "In triangle ABC, draw the inscribed circle and mark its center I. Then mark the three contact points X, Y, Z where the incircle touches the sides BC, CA, AB respectively.",
+    "expectedPoints": ["A", "B", "C", "I", "X", "Y", "Z"],
+    "expectedConics": 1
+  },
+  {
+    "id": "hard-two-circles-chord",
+    "category": "two-circles-common-chord",
+    "problem": "Two circles, one with center O and one with center P, intersect at two points M and N. Draw both circles, the common chord MN, and the segment OP joining the two centers.",
+    "expectedPoints": ["O", "P", "M", "N"],
+    "expectedConics": 2
+  },
+  {
+    "id": "hard-parallelogram-diag-mid",
+    "category": "parallelogram-diagonals",
+    "problem": "Parallelogram ABCD has its two diagonals AC and BD meeting at point O. Let M be the midpoint of side AB. Draw the parallelogram, both diagonals, and the segment OM.",
+    "expectedPoints": ["A", "B", "C", "D", "O", "M"],
+    "expectedConics": 0
+  },
+  {
+    "id": "hard-tangents-external",
+    "category": "tangents-from-point",
+    "problem": "A circle has center O. From an external point P outside the circle, draw the two tangent lines to the circle, touching it at points S and T. Also draw segments PS and PT.",
+    "expectedPoints": ["O", "P", "S", "T"],
+    "expectedConics": 1
+  },
+  {
+    "id": "hard-medians-centroid",
+    "category": "medians-centroid",
+    "problem": "In triangle ABC, let M, N, P be the midpoints of sides BC, CA, AB respectively. Draw the three medians AM, BN, CP, and mark the centroid G where they intersect.",
+    "expectedPoints": ["A", "B", "C", "M", "N", "P", "G"],
+    "expectedConics": 0
+  },
+  {
+    "id": "hard-orthocenter-reflection",
+    "category": "orthocenter-reflection",
+    "problem": "Triangle ABC has circumscribed circle with center O and orthocenter H. Let M be the midpoint of side BC. Draw the circumscribed circle, mark O, H and M, then reflect H over M to obtain the point K.",
+    "expectedPoints": ["A", "B", "C", "O", "H", "M", "K"],
+    "expectedConics": 1
+  },
+  {
+    "id": "hard-euler-line",
+    "category": "euler-line",
+    "problem": "In triangle ABC, mark the centroid G, the orthocenter H, and the circumcenter O. Then draw the Euler line, the straight line passing through G, H and O.",
+    "expectedPoints": ["A", "B", "C", "G", "H", "O"],
+    "expectedConics": 0
+  }
+]

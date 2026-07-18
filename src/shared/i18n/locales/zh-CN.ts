@@ -62,4 +62,12 @@ export const zhCN: Messages = {
   helpAdvStep7: '粘贴到 AI — AI 返回 GeoGebra 命令列表。',
   helpAdvStep8: '将命令粘贴到"命令列表"输入框。',
   helpAdvStep9: '点击"执行（绘制）"——图形会在 GeoGebra 标签页中绘制。',
+  samplesLabel: '示例题目',
+  samplesPlaceholder: '加载示例…',
+  samplesBasicGroup: '基础示例',
+  noteTitle: '注意：提示词仍在优化中',
+  noteBody:
+    '此提示词尚未完全优化——部分题目可能绘制不准确。目前在 Claude 上效果最佳，在 Gemini 上表现尚可，其他 AI 尚未测试。若想获得更好的结果：',
+  noteTip1: '把题目清晰地逐步描述（要构造哪些对象、按什么顺序），让提示词更有效。',
+  noteTip2: '或者自行编写提示词，然后把得到的 GeoGebra 命令直接粘贴到下面的命令框。',
 };
