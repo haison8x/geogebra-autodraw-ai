@@ -30,7 +30,8 @@ export default function App() {
     progress,
     errors,
     history,
-    onCalc,
+    hasCalcTab,
+    openingCalc,
     tr,
     commandCount,
     canExecute,
@@ -92,8 +93,8 @@ export default function App() {
         </ul>
       </details>
 
-      {/* Gating banner — extension only works on a Calculator tab */}
-      {!onCalc && (
+      {/* Guidance banner — no Calculator tab yet; Execute (Draw) opens one automatically */}
+      {!hasCalcTab && (
         <div className="rounded border border-amber-300 bg-amber-50 p-2 text-xs text-amber-800">
           <p>{tr('needCalcTab')}</p>
           <button
@@ -258,12 +259,12 @@ export default function App() {
           disabled={!canExecute}
           onClick={handleExecute}
         >
-          {phase === 'running' ? tr('drawing') : tr('execute')}
+          {openingCalc ? tr('openingCalculator') : phase === 'running' ? tr('drawing') : tr('execute')}
         </button>
         <button
           className="rounded border border-slate-300 px-3 py-2 disabled:opacity-50"
           onClick={handleClearCanvas}
-          disabled={!onCalc}
+          disabled={openingCalc}
         >
           {tr('clearCanvas')}
         </button>

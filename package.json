@@ -1,7 +1,7 @@
 {
   "name": "geogebra-autodraw-ai",
   "private": true,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "Chrome Extension: generate prompts + auto-draw plane geometry on GeoGebra via ggbApplet.evalCommand",
   "scripts": {

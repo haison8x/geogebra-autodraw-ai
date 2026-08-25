@@ -13,7 +13,7 @@ import {
   type Settings,
 } from '@/shared/storage';
 import { t, type Locale } from '@/shared/i18n';
-import { isCalc } from '../utils';
+import { ensureCalculatorTab, hasCalculatorTab, isCalc } from '../utils';
 import type { Phase } from '../types';
 
 function getErrorLineRange(raw: string, commandIndex: number): { start: number; end: number } | null {
@@ -49,6 +49,10 @@ export function useAppState() {
   const [errors, setErrors] = useState<ErrorItem[]>([]);
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [onCalc, setOnCalc] = useState(true);
+  // A Calculator tab exists somewhere (not necessarily the active tab) — the Background can
+  // still drive it, so drawing must not be gated on it being focused.
+  const [hasCalcTab, setHasCalcTab] = useState(true);
+  const [openingCalc, setOpeningCalc] = useState(false);
 
   const restored = useRef(false);
   const commandsRawRef = useRef('');
@@ -112,6 +116,7 @@ export function useAppState() {
       chrome.tabs.query({ active: true, lastFocusedWindow: true }).then((tabs) => {
         setOnCalc(isCalc(tabs[0]?.url));
       }, () => {});
+      void hasCalculatorTab().then(setHasCalcTab);
     };
     refresh();
     const onActivated = () => refresh();
@@ -120,10 +125,12 @@ export function useAppState() {
     };
     chrome.tabs.onActivated.addListener(onActivated);
     chrome.tabs.onUpdated.addListener(onUpdated);
+    chrome.tabs.onRemoved.addListener(onActivated);
     chrome.windows?.onFocusChanged.addListener(onActivated);
     return () => {
       chrome.tabs.onActivated.removeListener(onActivated);
       chrome.tabs.onUpdated.removeListener(onUpdated);
+      chrome.tabs.onRemoved.removeListener(onActivated);
       chrome.windows?.onFocusChanged.removeListener(onActivated);
     };
   }, []);
@@ -240,6 +247,13 @@ export function useAppState() {
     const commands = sanitizeCommands(commandsRaw);
     if (commands.length === 0) return;
 
+    // No Calculator tab yet → open one (and wait for it to load) instead of blocking the user.
+    setOpeningCalc(true);
+    const tabId = await ensureCalculatorTab();
+    setOpeningCalc(false);
+    if (tabId == null) return;
+    setHasCalcTab(true);
+
     setPhase('running');
     setProgress({ index: 0, total: commands.length });
     setErrors([]);
@@ -259,6 +273,12 @@ export function useAppState() {
   }, [commandsRaw, problem, history, clearFirst]);
 
   const handleClearCanvas = useCallback(async () => {
+    setOpeningCalc(true);
+    const tabId = await ensureCalculatorTab();
+    setOpeningCalc(false);
+    if (tabId == null) return;
+    setHasCalcTab(true);
+
     const msg: Message = { action: 'CLEAR_CANVAS', payload: {} };
     try {
       await chrome.runtime.sendMessage(msg);
@@ -273,7 +293,8 @@ export function useAppState() {
   }, []);
 
   const commandCount = sanitizeCommands(commandsRaw).length;
-  const canExecute = commandCount > 0 && phase !== 'running' && onCalc;
+  // Not gated on the Calculator tab: handleExecute opens it when missing.
+  const canExecute = commandCount > 0 && phase !== 'running' && !openingCalc;
 
   return {
     problem,
@@ -297,6 +318,8 @@ export function useAppState() {
     errors,
     history,
     onCalc,
+    hasCalcTab,
+    openingCalc,
     tr,
     commandCount,
     canExecute,
